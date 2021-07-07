@@ -1,0 +1,9 @@
+in line css
+in line js
+when we upload to github, make repo_pub, repo_priv
+in repo_priv have email info
+in repo_pub do not have email info, nor security key
+
+tech: django, css, js, bootstrap, sass, EVEN REACT?
+
+https://birdapp1.herokuapp.com/
