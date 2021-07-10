@@ -1,0 +1,2 @@
+might need to run in main folder with venv activated,
+pip install django gunicorn whitenoise (and any other pip installs)
