@@ -1,2 +1,3 @@
 # Programming-Notes
-Notes for the different programming languages, frameworks, libraries, and tools that I have learned.
+
+These are the notes for the different programming languages, frameworks, libraries, and tools that I have learned.
