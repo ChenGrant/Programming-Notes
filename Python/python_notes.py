@@ -230,7 +230,7 @@ Data Types
             # Since lists are indexed, lists can have items with the same value
             # list items can be of any data type
             # lists can contain items with different data types
-            # ex: thislist = ["apple", "banana", "cherry", "apple", "cherry"]
+            # ex: thislist = ["apple", 3, "cherry", "apple", "cherry"]
 
 
             # list[i] obtains the i-th element in the list, index-0
@@ -316,6 +316,11 @@ Data Types
             thislist.clear()
             print(thislist)     # will print []
 
+            # swapping indexes
+            thislist = [1,2,3,4,5,6,7]
+            thislist[4], thislist[2] = thislist[2],thislist[4] # swaps the 4th and 2nd index elements
+            print(thislist)     # will print [1, 2, 5, 4, 3, 6, 7]
+
             # use keyword "in" to check if an item is within a list
             # O(n) time, linearly searches list
             print("a" in thisList)      # will print True
@@ -378,6 +383,16 @@ Data Types
                 thislist = ["banana", "Orange", "Kiwi", "cherry"]
                 thislist.reverse()
                 print(thislist)     # will print ['cherry', 'Kiwi', 'Orange', 'banana']
+
+            # min()
+                # O(n) time
+                thislist = ["banana", "Orange", "Kiwi", "cherry"]
+                print(min(thislist))    # will print "Kiwi"
+
+            # max()
+                # O(n) time
+                thislist = ["banana", "Orange", "Kiwi", "cherry"]
+                print(min(thislist))    # will print "cherry"
 
             # copy lists
                 # You cannot copy a list simply by typing list2 = list1, because: list2 will only be a reference to list1, and changes made in list1 will automatically also be made in list2.
