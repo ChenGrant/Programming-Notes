@@ -2,11 +2,14 @@
 PEP 8
 """
     # stands for Python Enhacnemnt Proposal 8
+    # PEP 8 is a style guide document that provides guidelines and best practices on how to write Python code.
     # https://www.python.org/dev/peps/pep-0008/#package-and-module-names
     # improves readability of code and user-friendly code
 
     # saving a file should be lowercase, and separated by underscores when needed.
     my_module.py
+
+    # 79 is the maximum number of characters in a line
 
     # regular variables should be lowercase, and separated by underscores when needed. Never use l, O, I as a single-letter name for anything.
     age = 3
@@ -21,14 +24,13 @@ PEP 8
         pass
     def my_function():
         pass
+    # factory functions return objects(instances of classes) and their names should capitalize the first letter of each word
+    def FactoryFunction():
+        return MyClass
 
     # class names should capitalize the first letter of each word
     class MyClass:
         pass
-
-    # factory functions return objects(instances of classes) and should capitalize the letter of each word
-    def FactoryFunction():
-        return MyClass
 
     # conflicting names with keywords, suffix an underscore
     for_ = 123
@@ -46,13 +48,25 @@ VARIABLES
     x = 6
     x = "Hello World"
 
-    x = str(3)    # x will be '3'
-    y = int(3)    # y will be 3
-    z = float(3)  # z will be 3.0
+    x = str(3)          # x will be '3'
+    x = str(True)       # x will be 'True'
+
+    # int rounds down
+    y = int(3)          # y will be 3
+    y = int(3.1)        # y will be 3
+    y = int(3.9)        # y will be 3
+    y = int("3.9")      # error
+    y = int("39")       # y will be 39
+    y = int("-39")      # y will be -39
+
+    z = float(3)        # z will be 3.0
 
 
 
     # use type(variableName) to return its data type
+    x = ""
+    y = 2
+    z = 3.0
     print(type(x))  # will return <class 'str'>
     print(type(y))  # will return <class 'int'>
     print(type(z))  # will return <class 'float'>
@@ -190,12 +204,12 @@ Data Types
                 # escape characters
                 """
                     Code    Result
-                    \'	    Single Quote	
-                    \\	    Backslash	
-                    \n	    New Line	
-                    \t	    Tab	
+                    \'	    Single Quote
+                    \\	    Backslash
+                    \n	    New Line
+                    \t	    Tab
                     \b	    Backspace   (erases one character before the \b)
-                    \f	    Form Feed	        
+                    \f	    Form Feed
                 """
 
 
@@ -861,35 +875,35 @@ Operators
     # Arithmetic Operators
         """
             Operator        Name
-            +	            Addition		
-            -	            Subtraction		
-            *	            Multiplication	
-            /	            Division		
-            %	            Modulus	
+            +	            Addition
+            -	            Subtraction
+            *	            Multiplication
+            /	            Division
+            %	            Modulus
             **	            Exponentiation
-            //	            Floor division	
+            //	            Floor division
         """
 
     # Assignment Operators
         """
             Operator        Example             Same As
-            =	            x = 5	            x = 5	
-            +=	            x += 3	            x = x + 3	
-            -=	            x -= 3	            x = x - 3	
-            *=	            x *= 3	            x = x * 3	
-            /=	            x /= 3	            x = x / 3	
-            %=	            x %= 3	            x = x % 3	
-            //=	            x //= 3	            x = x // 3	
+            =	            x = 5	            x = 5
+            +=	            x += 3	            x = x + 3
+            -=	            x -= 3	            x = x - 3
+            *=	            x *= 3	            x = x * 3
+            /=	            x /= 3	            x = x / 3
+            %=	            x %= 3	            x = x % 3
+            //=	            x //= 3	            x = x // 3
             **=	            x **= 3	            x = x ** 3
         """
 
     # Comparison Operators
         """
             Operator        Name
-            ==	            Equal	
+            ==	            Equal
             !=	            Not equal
             >	            Greater than
-            <	            Less than	
+            <	            Less than
             >=	            Greater than or equal to
             <=	            Less than or equal to
         """
@@ -898,8 +912,8 @@ Operators
     # Logical Operators
         """
             Operator	    Description
-            and 	        Returns True if both statements are true	x < 5 and  x < 10	
-            or	            Returns True if one of the statements is true	x < 5 or x < 4	
+            and 	        Returns True if both statements are true	x < 5 and  x < 10
+            or	            Returns True if one of the statements is true	x < 5 or x < 4
             not	            Reverse the result, returns False if the result is true
         """
 
@@ -2374,7 +2388,7 @@ Decorators (I gave up on this)
             first_child()
         parent()
         """
-        calling parent() will print the following: 
+        calling parent() will print the following:
         Printing from the parent() function
         Printing from the second_child() function
         Printing from the first_child() function
@@ -2410,5 +2424,3 @@ Decorators (I gave up on this)
 
         first()         # prints 'Hi, I am Emma'
         second()        # prints 'Call me Liam'
-
-
