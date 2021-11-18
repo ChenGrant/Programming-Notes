@@ -2,7 +2,8 @@
 PEP 8
 """
     # stands for Python Enhacnemnt Proposal 8
-    # PEP 8 is a style guide document that provides guidelines and best practices on how to write Python code.
+    # PEP 8 is a style guide document that provides guidelines and best
+    # practices on how to write Python code.
     # https://www.python.org/dev/peps/pep-0008/#package-and-module-names
     # improves readability of code and user-friendly code
 
@@ -11,7 +12,8 @@ PEP 8
 
     # 79 is the maximum number of characters in a line
 
-    # regular variables should be lowercase, and separated by underscores when needed. Never use l, O, I as a single-letter name for anything.
+    # regular variables should be lowercase, and separated by underscores when needed.
+    # Never use l, O, I as a single-letter name for anything.
     age = 3
     first_name = "grant"
 
@@ -19,12 +21,14 @@ PEP 8
     PI = 3.14
     GRAVITATIONAL_ACCELERATION = 9.81
 
-    # function names should be lowercase, and separated by underscores when needed, and should have two lines before
+    # function names should be lowercase, and separated by underscores when
+    # needed, and should have two lines before
     def function():
         pass
     def my_function():
         pass
-    # factory functions return objects(instances of classes) and their names should capitalize the first letter of each word
+    # factory functions return objects(instances of classes) and their names
+    # should capitalize the first letter of each word
     def FactoryFunction():
         return MyClass
 
