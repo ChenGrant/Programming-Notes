@@ -772,7 +772,8 @@ DATA TYPES
     SET TYPES
     """
         # set
-            thisset = {"apple", 3, "cherry"}
+        newset = set()
+        thisset = {"apple", 3, "cherry"}
         # a set is a collection which is both unordered, unindexed, unchangeable, and do
         # not allow duplicate values.
         # sets are unordered, so you cannot be sure in which order the items will
@@ -788,7 +789,7 @@ DATA TYPES
 
         # adding items/joinging sets
             # O(1) time
-                thisset.add("orange") # add one item to set
+            thisset.add("orange") # add one item to set
 
             # update() is used to add items from any iterable object (list, tuples,
             # dictionaries, etc) to another set.
