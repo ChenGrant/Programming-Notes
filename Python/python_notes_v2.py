@@ -1428,6 +1428,44 @@ MUTABLE VS IMMUTABLE
         changeList(list3)   # changes li, but since li=list3, list3 changes as well
         print(list3)        # [1, 2, 3, 100]
 
+        # ListNode Example:
+            # Suppose n1, n2, n4 are ListNodes which are user-defined objects
+
+            curr = n1
+            print(id(n1))   # prints 140717293534416
+            print(id(curr)) # prints 140717293534416
+            # notice curr and n1 are exactly the same. They have the same id's, meaning
+            # they point to the same location in memory. They have the same val.
+            # The next node of n1 has the same id as the next node of curr since
+            # n1 and curr are the same, so their next node is the same.
+
+            n1.val = 3
+            print(curr.val)     # prints 3
+            print(n1.next)      # <__main__.ListNode object at 0x7ffb4c4b7d30>
+            print(curr.next)    # <__main__.ListNode object at 0x7ffb4c4b7d30>
+            # notice since curr and n1 point to the same memory address. When
+            # the memory address of n1.val was changed to have a value of 3,
+            # curr.val also changed to have a value of 3.
+
+            n1.next = n4
+            print(n1.next)      # <__main__.ListNode object at 0x7ffb4c4b7df0>
+            print(curr.next)    # <__main__.ListNode object at 0x7ffb4c4b7df0>
+            print(id(n1))       # prints 140717293534416
+            print(id(curr))     # prints 140717293534416
+            # Notice we changed the node that n1.next points to. Since n1 and curr
+            # are the exact same as shown by their identical id's, curr.next node also
+            # changes to the same node that n1.next points to.
+
+            n1 = n2
+            # print(id(n1))     # 140717293534512
+            # print(id(curr))   # prints 140717293534416
+            # Before, we were changing the data in memory. Now, we are
+            # changing the reference to memory that n1 makes. n1 no longer points to
+            # the same memory address as curr. curr's memory address doesn't change.
+            # n1 and curr have nothing to do with each other now.
+            # Look at the n1=n2.png in the same folder as this python notes folder which
+            # explains this shit visually.
+
         # Shallow VS Deep Copying
             # The difference between shallow and deep copying is only relevant for compound
             # objects (objects that contain other objects, like lists or class instances).
