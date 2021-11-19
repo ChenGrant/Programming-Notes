@@ -1426,7 +1426,7 @@ MUTABLE VS IMMUTABLE
         list3 = [1,2,3]
         print(id(list3))    # prints id of list3, notice it is the same as li
         changeList(list3)   # changes li, but since li=list3, list3 changes as well
-        print(list3)
+        print(list3)        # [1, 2, 3, 100]
 
         # Shallow VS Deep Copying
             # The difference between shallow and deep copying is only relevant for compound
@@ -1453,7 +1453,7 @@ MUTABLE VS IMMUTABLE
                 print(id(a[0]))
                 print(id(shallow_a[0]))
                 # notice a[0] and shallow_a[0] have the same id. shallow_a[0] points to the same
-                # location in memory as a[0,
+                # location in memory as a[0]
 
                 a.append(3)
                 print(a)
@@ -1517,7 +1517,7 @@ MUTABLE VS IMMUTABLE
         str = "hello"
         # str[0] = "2"  will print an error
 
-        # change the values of immutable data types creates an entirely new variable in
+        # changing the values of immutable data types creates an entirely new variable in
         # memory (changes id)
         immutableTuple = (1,2,3)
         print(id(immutableTuple))
