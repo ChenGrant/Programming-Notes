@@ -187,12 +187,27 @@ DATA TYPES
                 s.count("ll")   # returns 1
                 s.count("s")    # returns 0
 
+                # isnumeric() checks whether all the characters of the string are numeric
+                # characters or not. It will return True if all characters are numeric and
+                # will return False even if one character is non-numeric.
+                print("232".isnumeric())    # prints True
+                print("2.32".isnumeric())   # prints False
+                print("2A".isnumeric())     # prints False
+                print("$100".isnumeric())   # prints False
+
                 # returns a string in upper case and lower
                 print(x.upper())
                 print(x.lower())
 
                 # removes white space before and after a string
                 print(x.strip())
+
+                # "".join() consumes an array of strings and merges the string elements
+                # into one single string
+                str_list = ["what", " is", " this"]
+                x = "".join(str_list)
+                print(x)
+                # will print: what is this
 
                 # format strings
                 quantity = 3
@@ -324,12 +339,27 @@ DATA TYPES
             print(thislist)
             # will print ['apple', 'banana', 'cherry', 'kiwi', 'orange']
 
+            # use + to combine lists, this will change the id of the list
+            my_list = [1,2,3,4]
+            print(id(my_list))
+            # will print 140682152093184
+            my_list = [0]+my_list
+            print(my_list)
+            # will print [0, 1, 2, 3, 4]
+            print(id(my_list))
+            # will print 140682152425536
+
             # the remove() method removes the first instance of a specified item
             # O(n) time
             thislist = ["apple", "banana", "banana", "cherry"]
             thislist.remove("banana")
             print(thislist)
             # will print ['apple', 'banana', 'cherry']
+
+            # the index() method returns the index of the first instance of a specified items
+            thislist = [1,2,1,2]
+            print(thislist.index(1))
+            # will print 0
 
             # the pop(i) method removes the i-th index
             # O(n-i) time
@@ -433,6 +463,11 @@ DATA TYPES
                 thislist.reverse()
                 print(thislist)     # will print ['cherry', 'Kiwi', 'Orange', 'banana']
 
+                # we can also use mylist[::-1] to reverse a list
+                mylist = [[1,2,3],[4,5,6], [7,8,9]]
+                print(mylist[::-1])
+                # will print [[7, 8, 9], [4, 5, 6], [1, 2, 3]]
+
             # min()
                 # O(n) time
                 thislist = ["banana", "Orange", "Kiwi", "cherry"]
@@ -447,11 +482,19 @@ DATA TYPES
                 # You cannot copy a list simply by typing list2 = list1, because: list2 will only
                 # be a reference to list1, and changes made in list1 will automatically also be
                 # made in list2.
-                # use copy()
+                # use deepcopy(). In the following example, x has nothing to do with y. To learn
+                # more about deepcopy, scroll to mutable vs immutable section.
                 # O(n) time
-                thislist = ["apple", "banana", "cherry"]
-                mylist = thislist.copy()
-                print(mylist)       # will print ['apple', 'banana', 'cherry']
+                import copy
+                x = [1,[2,3,4],"lol"]
+                y = copy.deepcopy(x)
+                print(y)
+                # will print [1, [2, 3, 4], 'lol']
+                print(id(x))
+                # will print 139971842305344
+                print(id(y))
+                # will print 139971842305280
+
 
             # deletes the list, it is not empty, there is no list
             del thisList
@@ -671,6 +714,18 @@ DATA TYPES
 
                 # clear() empties a dictionary
                 thisdict.clear()
+
+            # sort a dictionary by values, will change id of the dict
+                x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
+                print(id(x))
+                # will print 140063786212608
+                x = dict(sorted(x.items(), key=lambda item: item[1]))
+                print(x)
+                # will print {0: 0, 2: 1, 1: 2, 4: 3, 3: 4}
+                print(id(x))
+                # will print 140063784409664
+
+
 
             # Loop Dictionaries
                 thisdict =	{
@@ -1083,6 +1138,32 @@ Loops
     5
     """
 
+    # reversed() allows us to reverse a range
+    for x in reversed(range(6)):
+      print(x)
+    """
+    Loop prints the following:
+    5
+    4
+    3
+    2
+    1
+    0
+    """
+
+    # we cannot change the index of a for loop
+    for i in range(5):
+        print(i)
+        i+=2
+    """
+    Loop prints the following:
+    0
+    1
+    2
+    3
+    4
+    """
+
     # for loops cannot be empty, but if you for some reason have a for loop with no content, put in
     # the pass statement to avoid getting an error.
     for x in [0, 1, 2]:
@@ -1364,6 +1445,19 @@ File Handling
     # always close your files, in some cases, due to buffering, changes made to a file may not show
     # until you close the file
     f.close()
+
+
+
+"""
+***************************************************************************************************
+Assert
+"""
+    # Use asserts to test functions with sample input and their expected Output
+    arr = [3,2,1]
+    arr.sort()
+    assert arr == [1,2,3]   # if this is true, nothing happens, if it is false, an error is raised
+    assert max(3,2,22) == 22
+    assert max(3,2,22) == 2     # will raise an error
 
 
 
@@ -1747,6 +1841,7 @@ Python Math
         import math
         x = sqrt(2.3)
         x = math.pi
+        x = math.gcd(2,3)
 
         # ceil() floor()
         # return type is integer so print(type(math.floor(1.2))) is <class 'int'>
