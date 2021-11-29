@@ -1471,7 +1471,7 @@ MUTABLE VS IMMUTABLE
     # possible values and operations, also the result of the type() method. An object's value could
     # either change (mutable) or cannot change (immutable), mutability is determined by type.
 
-    # mutable data types: list, dictionary, set, and user-defined classes
+    # mutable data types: list, dictionary, set, deque, and user-defined classes
     # immutable data types: int, float, decimal, bool, string, tuple, and range
 
     # mutable data types
@@ -2061,55 +2061,107 @@ Collections
 
     # deque
         # The deque is a list optimized for inserting and removing items.
+        # deque is mutable
+
         # import the deque class from the collecitons module
         from collections import deque
 
         # initializing deque objects
         # You can create a deque with deque() constructor. Pass in an iterable.
+        d1 = deque()
         d1 = deque(["a","b","c"])
         print(d1)           # prints deque(['a', 'b', 'c'])
         d2 = deque("hello")
         print(d2)           # prints deque(['h', 'e', 'l', 'l', 'o'])
 
-        d1.append(4)        # adds 4 the the end of the deque
-        print(d1)           # prints deque(['a', 'b', 'c', 4])
-        d1.appendleft(2)    # adds 2 to the left of the deque
-        print(d1)           # prints deque([2, 'a', 'b', 'c', 4])
+        # Adding Elements
+            # append() consumes an element and adds it to the end (the right) of the deque
+            # O(1) time
+            d1.append(4)        # adds 4 the the end of the deque
+            print(d1)           # prints deque(['a', 'b', 'c', 4])
 
-        print(d1)               # prints deque([2, 'a', 'b', 'c', 4])
-        d1.pop()                # removes last element in the deque
-        print(d1)               # prints deque([2, 'a', 'b', 'c'])
-        d1.popleft()            # removes first element in the deque
-        print(d1)               # prints deque(['a', 'b', 'c'])
+            # appendleft() consumes an element and adds it to the start (the left) of the deque
+            # O(1) time
+            d1.appendleft(2)    # adds 2 to the left of the deque
+            print(d1)           # prints deque([2, 'a', 'b', 'c', 4])
 
-        d1.clear()              # removes everything from the deque
-        print(d1)               # prints deque([])
+            # extend() takes an iterable object and adds it to the end of the deque
+            # O(k) time where k is the length of the iterable object
+            d1.extend("456")
+            d1.extend("hello")
+            print(d1)  # prints deque(['4', '5', '6', 'h', 'e', 'l', 'l', 'o'])
 
-        d1.extend("456")        # takes an iterable object and adds it to the end of the deque
-        d1.extend("hello")
-        print(d1)               # prints deque(['4', '5', '6', 'h', 'e', 'l', 'l', 'o'])
+            # extendleft() takes an iterable object and adds it to the front of the deque
+            # O(k) time where k is the length of the iterable object
+            d1.extendleft("hey")
+            print(d1)
+            # prints deque(['y', 'e', 'h', '4', '5', '6', 'h', 'e', 'l', 'l', # 'o'])
+            # notice it's y then e then h
 
-        d1.extendleft("hey")    # takes an iterable object and adds it to the front of the deque
-        print(d1)               # prints deque(['y', 'e', 'h', '4', '5', '6', 'h', 'e', 'l', 'l',
-                                # 'o']), notice it's y then e then h
+        # Peeking
+            print(d1)               # prints deque(['1', '2', '3', '4'])
+            print(d1[-1])           # prints 4
+            print(d1)               # prints deque(['1', '2', '3', '4'])
+            # notice peek doesn't remove the element from the deque
 
-        d1.clear()
-        d1.extend([1,2,3,4])
-        print(d1)               # prints deque([1, 2, 3, 4])
-        d1.rotate(2)            # rotates all the elements right by that amount
-        print(d1)               # prints deque([3, 4, 1, 2]), notice 1 which was index 0 is not
-                                # index 0+2 which so index 3. 3 which was index 2 is now index 2+2
-                                # which is 4, but goes back to front to index 0.
-        d1.rotate(-3)           # negative number rotates left
-        print(d1)               # prints deque([2, 3, 4, 1])
+        # Removing Elements
+            print(d1)               # prints deque([2, 'a', 'b', 'c', 4])
 
-        d = deque("hel", maxlen=5)  # sets max-length of the deque to be 5
-        print(d)                    # prints deque(['h', 'e', 'l'], maxlen=5)
-        d.extend([1,2,3,4])
-        print(d)                    # prints deque(['l', 1, 2, 3, 4], maxlen=5), notice the deque
-                                    # will keep popping the first element to maintain a length of
-                                    # at most 5
-        print(d.maxlen)             # prints 5, maxlen is not changeable after declaration
+            # pop() removes last (rightmost) element in the deque
+            # O(1) time
+            d1.pop()
+            print(d1)               # prints deque([2, 'a', 'b', 'c'])
+
+            # popleft() removes first (leftmost) element in the deque
+            # O(1) time
+            d1.popleft()
+            print(d1)               # prints deque(['a', 'b', 'c'])
+
+            # remove() consumes an element and removes the first occurence of the element
+            # O(n) time
+            d1 = deque()
+            d1.extend("212232")
+            print(d1)           # will print deque(['2', '1', '2', '2', '3', '2'])
+            d1.remove('2')
+            print(d1)           # will print deque(['1', '2', '2', '3', '2'])
+            d1.remove('a')      # will raise an error since 'a' is not in d1
+
+        # clear() removes everything from the deque
+            d1.clear()
+            print(d1)               # prints deque([])
+
+        # rotate() consumes an integer, k, and rotates all the elements right by k.
+        # If k is negative, elements are rotated to the left by the magnitude of k.
+        # O(k) time
+            d1.extend([1,2,3,4])
+            print(d1)               # prints deque([1, 2, 3, 4])
+            d1.rotate(2)            # rotates all the elements right by 2
+            print(d1)
+            # prints deque([3, 4, 1, 2]),
+            # notice 1 which was index 0 is now index 0+2 which so index 3.
+            # 3 which was index 2 is now index 2+2 which is now 4, but goes
+            # back to front to index 0.
+
+            d1.rotate(-3)           # negative number rotates left
+            print(d1)               # prints deque([2, 3, 4, 1])
+
+        # len() returns the length of the deque
+        # O(1) time
+            d1 = deque()
+            d1.extend("2222")
+            print(len(d1))          # prints 4
+
+        # maxlen can be used to create an upper bound on the length of the deque
+        # maxlen is not changeable after declaration
+            d = deque("hel", maxlen=5)
+            # sets max-length of the deque to be 5,
+            print(d)                    # prints deque(['h', 'e', 'l'], maxlen=5)
+            d.extend([1,2,3,4])
+            print(d)                    # prints deque(['l', 1, 2, 3, 4], maxlen=5)
+            # notice the deque will keep popping the first element to maintain a
+            # length of at most 5
+
+            print(d.maxlen)             # prints 5, maxlen is not changeable after declaration
 
     # defaultdict
         # The defaultdict works exactly like a python dictionary, except for it does not throw
