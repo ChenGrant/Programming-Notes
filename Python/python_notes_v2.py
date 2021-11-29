@@ -2061,7 +2061,9 @@ Collections
 
     # deque
         # The deque is a list optimized for inserting and removing items.
+        # deque can be used to implement stacks and queues
         # deque is mutable
+        # deque is implemented via doubly-linked list
 
         # import the deque class from the collecitons module
         from collections import deque
