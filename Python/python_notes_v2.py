@@ -478,6 +478,11 @@ DATA TYPES
                 thislist = ["banana", "Orange", "Kiwi", "cherry"]
                 print(max(thislist))    # will print "cherry"
 
+            # sum()
+                # O(n) time
+                thislist = [1,2,3,4]
+                print(sum(thislist))    # will print 10
+
             # copy lists
                 # You cannot copy a list simply by typing list2 = list1, because: list2 will only
                 # be a reference to list1, and changes made in list1 will automatically also be
@@ -2103,6 +2108,7 @@ Collections
         # Peeking
             print(d1)               # prints deque(['1', '2', '3', '4'])
             print(d1[-1])           # prints 4
+            print(d1[-2])           # prints 3
             print(d1)               # prints deque(['1', '2', '3', '4'])
             # notice peek doesn't remove the element from the deque
 
@@ -2152,6 +2158,11 @@ Collections
             d1 = deque()
             d1.extend("2222")
             print(len(d1))          # prints 4
+
+        # sum() returns the sum of a deque
+        # O(n) time
+            d1 = deque([1,2,3,4])
+            print(sum(d1))          # will print 10
 
         # maxlen can be used to create an upper bound on the length of the deque
         # maxlen is not changeable after declaration
