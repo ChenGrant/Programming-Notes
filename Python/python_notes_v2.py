@@ -202,7 +202,7 @@ DATA TYPES
                 # removes white space before and after a string
                 print(x.strip())
 
-                # "".join() consumes an array of strings and merges the string elements
+                # "".join() consumes an iterable and merges the string elements
                 # into one single string
                 str_list = ["what", " is", " this"]
                 x = "".join(str_list)
@@ -2137,6 +2137,10 @@ Collections
         # clear() removes everything from the deque
             d1.clear()
             print(d1)               # prints deque([])
+
+        # ''.join() consumes a deque of strings and converts it into 1 string
+            d1 = deque(["what","i","do"])
+            print("".join(d1))      # will print "whatido"
 
         # rotate() consumes an integer, k, and rotates all the elements right by k.
         # If k is negative, elements are rotated to the left by the magnitude of k.
