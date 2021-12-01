@@ -3041,3 +3041,128 @@ Decorators (I gave up on this)
 
         first()         # prints 'Hi, I am Emma'
         second()        # prints 'Call me Liam'
+
+
+
+"""
+***************************************************************************************************
+Abstract Data Types
+"""
+
+    # Linked List
+        class ListNode:
+            def __init__(self, val=0, next=None):
+                self.val = val
+                self.next = next
+
+        # helper functions
+        def insert_head(val, head):
+            new_head = ListNode(val, head)
+            head = new_head
+            return head
+
+        def insert_tail(val, head):
+            tail = ListNode(val, None)
+            if head is None:
+                return tail
+            curr = head
+            while curr.next:
+                curr = curr.next
+            curr.next = tail
+            return head
+
+        def remove_head(head):
+            if head is not None:
+                head = head.next
+            return head
+
+        def remove_tail(head):
+            if head is None or head.next is None:
+                head = None
+            else:
+                curr = head
+                while curr.next.next is not None:
+                    curr = curr.next
+                curr.next = None
+            return head
+
+        def size(head):
+            length = 0
+            curr = head
+            while curr is not None:
+                curr = curr.next
+                length += 1
+            return length
+
+        def list_to_linked_list(arr, acc = None):
+            if len(arr) == 0:
+                return None
+            if len(arr) == 1:
+                return ListNode(arr[0], acc)
+            return list_to_linked_list(arr[:len(arr)-1], ListNode(arr[len(arr)-1], acc))
+
+        def print_list(head):
+            if head:
+                print(str(head.val)+" ->", end=" ")
+                return print_list(head.next)
+            else:
+                print("None")
+
+    # Stacks
+        from collections import deque
+
+        class Stack:
+            def __init__(self):
+                self.btainer = deque()
+            def push(self, val):
+                self.container.append(val)
+            def pop(self):
+                return self.container.pop()
+            def peek (self):
+                return self.container[-1]
+            def is_empty(self):
+                return len(self.container)==0
+            def size(self):
+                return len(self.container)
+
+    # Queue
+        from collections import deque
+
+        class Queue:
+            def __init__(self):
+                self.buffer = deque()
+            def enqueue(self, val):
+                self.buffer.appendleft(val)
+            def dequeue(self):
+                return self.buffer.pop()
+            def is_empty(self):
+                return len(self.buffer)==0
+            def size(self):
+                return len(self.buffer)
+
+    # Trees
+        class BinaryTreeNode:
+            def __init__(self, val=0, left=None, right=None):
+                self.val = val
+                self.left = left
+                self.right = right
+
+        class BinarySearchTreeNode:
+            def __init__(self, val=0, left=None, right=None):
+                self.val = val
+                self.left = left
+                self.right = right
+
+            def add_child(self,val):
+                if val == self.val:
+                    return
+                elif val < self.val:
+                    if self.left:
+                        self.left.add_child(val)
+                    else:
+                        self.left = BinarySearchTreeNode(val)
+                elif val > self.val:
+                    if self.right:
+                        self.right.add_child(val)
+                    else:
+                        self.right = BinarySearchTreeNode(val)
