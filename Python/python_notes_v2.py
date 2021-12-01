@@ -3049,7 +3049,7 @@ Decorators (I gave up on this)
 Abstract Data Types
 """
 
-    # Linked List
+    # Singly Linked List
         class ListNode:
             def __init__(self, val=0, next=None):
                 self.val = val
@@ -3166,3 +3166,48 @@ Abstract Data Types
                         self.right.add_child(val)
                     else:
                         self.right = BinarySearchTreeNode(val)
+
+            def val_in_bst(self, val):
+                if self.val is not None:
+                    if self.val == val:
+                        return True
+                    elif self.val < val:
+                        if self.right:
+                            return self.right.val_in_bst(val)
+                        else:
+                            return False
+                    elif self.val > val:
+                        if self.left:
+                            return self.left.val_in_bst(val)
+                        else:
+                            return False
+                else:
+                    return False
+
+        # helper functions
+        def deleteNode(root, key):
+            if root:
+                if root.val<key:
+                    root.right = deleteNode(root.right, key)
+                    return root
+                elif root.val>key:
+                    root.left = deleteNode(root.left, key)
+                    return root
+                elif root.val == key:
+                    if root.left and root.right:
+                        root.val = leftmost(root.right)
+                        root.right = deleteNode(root.right, root.val)
+                        return root
+                    elif root.left:
+                        return root.left
+                    elif root.right:
+                        return root.right
+                    else:
+                        return None
+            else:
+                return None
+
+        def leftmost(root):
+            while root.left:
+                root = root.left
+            return root.val
