@@ -502,7 +502,15 @@ DATA TYPES
 
 
             # deletes the list, it is not empty, there is no list
+            # note del can also delete an item of a list
             del thisList
+
+            thisList = [1,2,3,4]
+            print(thisList)     # prints [1, 2, 3, 4]
+            del thisList[2]
+            # this wil remove the item at index 2
+            print(thisList)     # prints [1, 2, 4]
+
 
         # tuple
             thistuple = ("apple", "banana", 3, "apple", "cherry")
@@ -2076,6 +2084,8 @@ Collections
         # initializing deque objects
         # You can create a deque with deque() constructor. Pass in an iterable.
         d1 = deque()
+        d1 = deque(range(6))
+        print(d1)           # prints deque([0, 1, 2, 3, 4, 5])
         d1 = deque(["a","b","c"])
         print(d1)           # prints deque(['a', 'b', 'c'])
         d2 = deque("hello")
@@ -2109,8 +2119,9 @@ Collections
             print(d1)               # prints deque(['1', '2', '3', '4'])
             print(d1[-1])           # prints 4
             print(d1[-2])           # prints 3
+            print(d1[0])            # prints 1
             print(d1)               # prints deque(['1', '2', '3', '4'])
-            # notice peek doesn't remove the element from the deque
+            # notice this doesn't remove the element from the deque
 
         # Removing Elements
             print(d1)               # prints deque([2, 'a', 'b', 'c', 4])
@@ -3211,3 +3222,66 @@ Abstract Data Types
             while root.left:
                 root = root.left
             return root.val
+
+        # preorder, inorder, postorder
+        # O(n) time
+        # O(h) time
+            # space complexity is dictated by the maximum depth of the function call stack.
+            # The minimum value for h is log n (complete binary tree) and the maximum value
+            # for h is n (skewed tree).
+        def preorder(root):
+            if root:
+                print(root.val)
+                preorder(root.left)
+                preorder(root.right)
+
+        def inorder(root):
+            if root:
+                inorder(root.left)
+                print(root.val)
+                inorder(root.right)
+
+        def postorder(root):
+            if root:
+                postorder(root.left)
+                postorder(root.right)
+                print(root.val)
+
+"""
+***************************************************************************************************
+Algorithms
+"""
+    # Detailed explanations for the algorithms are in 'Technical Interview Notes' google doc
+
+    # Kadane's Algorithm (Sum of Max Subarray)
+        def max_subarray(arr):
+            max_sum = arr[0]
+            curr_max = arr[0]
+            for i in range(1, len(arr)):
+                curr_max = max(arr[i], curr_max+ arr[i])
+                max_sum = max(max_sum, curr_max)
+            return max_sum
+
+    # Floyd’s Cycle Detection Algorithm
+        def cycle_entry_point(head):
+            slow, fast = head, head
+            while fast and fast.next:
+                slow = slow.next
+                fast = fast.next.next
+                if slow == fast:
+                    slow = head
+                    while slow!=fast:
+                        slow = slow.next
+                        fast = fast.next
+                    return slow
+            return None
+
+    # Sorting Algorithms
+        def quicksort(arr):
+            if len(arr)==0:
+                return arr
+            else:
+                pivot = arr[0]
+                less = list(filter(lambda x: x<pivot, arr[1:]))
+                greater = list(filter(lambda x: x>=pivot, arr[1:]))
+                return quicksort(less)+[pivot]+quicksort (greater)
