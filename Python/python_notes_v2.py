@@ -99,6 +99,10 @@ VARIABLES
     print(c+d)  # will return 5
     # to combine strings and numbers, turn the numbers into str
     print(a+" "+b+str(c+d))     # will return "Python is cool5"
+    # f strings should be used instead of turning numbers into strings
+    num = 123
+    print("Hello world"+str(123)+str(689))  # prints Hello world123689
+    print(f"Hello world{num}{689}")         # prints Hello world123689
 
 
 
@@ -456,6 +460,19 @@ DATA TYPES
                 thislist.sort(key = myfunc)
                 print(thislist)
                 # will print [50, 65, 23, 82, 100]
+
+            # if myList:
+                # given a list, say myList,
+                # if myList will return True if myList is non-is_empty
+                # if myList will return False if myList is empty
+
+                l1 = []
+                if l1:
+                    print(2)    # 2 is not printed since l1 is empty
+
+                l1 = [1]
+                if l1:
+                    print(3)    # 3 is printed since l1 is non-is_empty
 
             # reverse()
                 # O(n) time
@@ -1177,6 +1194,21 @@ Loops
     4
     """
 
+    # use enumerate if we want both the index and a value in a list
+    l1 = [23,9,32894,4]
+
+    for i, x in enumerate(l1):
+        print(i, x)
+
+    """
+    Loop prints the following:
+    0 23
+    1 9
+    2 32894
+    3 4
+    """
+
+
     # for loops cannot be empty, but if you for some reason have a for loop with no content, put in
     # the pass statement to avoid getting an error.
     for x in [0, 1, 2]:
@@ -1536,6 +1568,42 @@ MUTABLE VS IMMUTABLE
         changeList(list3)   # changes li, but since li=list3, list3 changes as well
         print(list3)        # [1, 2, 3, 100]
 
+        # changing mutable data types through default arguements
+            # arguement defaults are defined when the function is defined, not when the function
+            # is executed.
+
+            # in this function, every call to the function shares the same list with not
+            # just the same value, but also the same id
+            def append (n, l=[]):
+                l.append(n)
+                return l
+
+            l1 = append(0)
+            print(l1)           # prints [0]
+            print(id(l1))       # prints 139783158914688
+            # when we call the append function one more time, l2 makes a refernce to l1
+            l2 = append(1)
+            print(l1)           # prints [0, 1]     (notice how l1 has changed)
+            print(l2)           # prints [0, 1]     (notice how l2 is not [1])
+            print(id(l1))       # prints 139783158914688
+            print(id(l2))       # prints 139783158914688
+            # notice how l1 and l2 have the same
+
+            # to avoid this problem, we can set the default to None first
+            def append(n, l=None):
+                if l is None:
+                    l = []
+                l.append(n)
+                return l
+
+            l1 = append(0)  # [0]
+            l2 = append(1)  # [1]
+
+
+
+
+
+
         # ListNode Example:
             # Suppose n1, n2, n4 are ListNodes which are user-defined objects
 
@@ -1887,6 +1955,19 @@ Run Time
         endTime = time.time()
         print(endTime-startTime)
 
+
+
+
+    # a better way to measure time is with perf_counter()
+    # perf_counter
+    import time
+
+    start = time.perf_counter()
+    l = []
+    for x in range(100):
+        l.append(x)
+    end = time.perf_counter()
+    print(end-start)        # will print the time it takes in seconds
 
 
 """
