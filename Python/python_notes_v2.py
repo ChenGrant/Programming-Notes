@@ -130,6 +130,43 @@ SCOPE
     print(x)    # will print "fantastic"
 
 
+    # nonlocal
+        # nonlocal variables are used in nested functions whose local scope is not defined.
+        # This means that the variable can be neither in the local nor the global scope.
+        # Often used in tree questions where you have a nested function that traverses the tree
+        def outer():
+            x = "local"
+            def inner():
+                nonlocal x
+                x = "nonlocal"
+                print("inner:", x)
+            inner()
+            print("outer:", x)
+        outer()
+
+
+        def sumNumbers(root):
+            leaf_sum = 0
+            def traverse(root, curr_num=0):
+                nonlocal leaf_sum               # notice the use of nonlocal here
+                if root:
+                    curr_num = curr_num * 10 + root.val
+                    if not root.left and not root.right:
+                        leaf_sum += curr_num
+                    if root.left:
+                        traverse(root.left, curr_num)
+                    if root.right:
+                        traverse(root.right, curr_num)
+                    curr_num -= root.val
+                    curr_num //= 10
+            traverse(root)
+            return leaf_sum
+
+
+
+
+
+
 
 """
 ***************************************************************************************************
@@ -3309,7 +3346,8 @@ Abstract Data Types
         # O(h) time
             # space complexity is dictated by the maximum depth of the function call stack.
             # The minimum value for h is log n (complete binary tree) and the maximum value
-            # for h is n (skewed tree).
+            # for h is n (skewed tree).
+
         def preorder(root):
             if root:
                 print(root.val)
