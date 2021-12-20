@@ -3347,24 +3347,65 @@ Abstract Data Types
             # space complexity is dictated by the maximum depth of the function call stack.
             # The minimum value for h is log n (complete binary tree) and the maximum value
             # for h is n (skewed tree).
+        # recursive
+            def preorder(root):
+                if root:
+                    print(root.val)
+                    preorder(root.left)
+                    preorder(root.right)
 
-        def preorder(root):
-            if root:
-                print(root.val)
-                preorder(root.left)
-                preorder(root.right)
+            def inorder(root):
+                if root:
+                    inorder(root.left)
+                    print(root.val)
+                    inorder(root.right)
 
-        def inorder(root):
-            if root:
-                inorder(root.left)
-                print(root.val)
-                inorder(root.right)
+            def postorder(root):
+                if root:
+                    postorder(root.left)
+                    postorder(root.right)
+                    print(root.val)
+        # iteratively
+            def preorder(root):
+                if not root:
+                    return
+                node_stack = deque([root])
+                while node_stack:
+                    node = node_stack.pop()
+                    print(node.val)
+                    if node.right:
+                        node_stack.append(node.right)
+                    if node.left:
+                        node_stack.append(node.left)
 
-        def postorder(root):
-            if root:
-                postorder(root.left)
-                postorder(root.right)
-                print(root.val)
+            def inorder(root):
+                node_stack = deque()
+                node = root
+                while node or node_stack:
+                    if node:
+                        node_stack.append(node)
+                        node = node.left
+                    elif node_stack:
+                        node = node_stack.pop()
+                        print(node.val)
+                        node = node.right
+
+            def postorder(root):
+                if not root:
+                    return
+                node_stack = deque([root])
+                out_stack = deque()
+                while node_stack:
+                    node = node_stack.pop()
+                    out_stack.append(node.val)
+                    if node.left:
+                        node_stack.append(node.left)
+                    if node.right:
+                        node_stack.append(node.right)
+                while out_stack:
+                    print(out_stack.pop())
+
+
 
 """
 ***************************************************************************************************
