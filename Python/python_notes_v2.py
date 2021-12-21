@@ -3405,6 +3405,55 @@ Abstract Data Types
                 while out_stack:
                     print(out_stack.pop())
 
+    # Priority Queue
+        # implemented via heaps
+        # Since we will use lists to represent the heaps,
+        # heaps will be mutable
+
+        import heapq
+
+        # creating a heap
+            # create a list
+            my_list = [5,7,9,1,3]
+            print(my_list)          # prints [5, 7, 9, 1, 3]
+            # convert list to min heap
+            heapq.heapify(my_list)
+            print(my_list)          # prints [1, 3, 9, 7, 5]
+
+        # Adding Elements
+            # heappush pushes element into a heap
+                # O(log n) time
+                print(my_list)      # prints [1, 3, 9, 7, 5]
+                heapq.heappush(my_list, 4)
+                print(my_list)      # prints [1, 3, 4, 7, 5, 9]
+
+        # Polling (Removing Root Element)
+            # O(log n) time
+            print(my_list)      # prints [1, 3, 4, 7, 5, 9]
+            print(heapq.heappop(my_list))   # prints 1
+            print(my_list)      # prints [3, 5, 4, 7, 9]
+
+        # Peeking
+            # O(1) time
+            print(my_list)      # prints [3, 5, 4, 7, 9]
+            print(my_list[0])   # prints 3
+            print(my_list)      # prints [3, 5, 4, 7, 9]
+
+        # nlargest/nsmallest
+            # nlargest(k, iterable)
+            # returns the k largest elements from the specified iterable
+
+            # nsmallest(k, iterable)
+            # returns the k smallest elements from the specified iterable
+
+            print(l)        # prints [1, 2, 32, 4, 23, 321, 56, 31]
+            print(heapq.nlargest(2, l))     # prints [321, 56]
+            print(heapq.nsmallest(2, l))    # prints [1, 2]
+
+
+
+
+
 
 
 """
