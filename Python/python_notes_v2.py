@@ -3410,6 +3410,12 @@ Abstract Data Types
         # Since we will use lists to represent the heaps,
         # heaps will be mutable
 
+        # use min heap when we want the biggest elements since min
+        # heaps are good at removing the smallest elements
+
+        # use max heap when we want the smallest elements since max
+        # heaps are good at removing the biggest elements
+
         import heapq
 
         # creating a heap
