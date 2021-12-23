@@ -3491,6 +3491,21 @@ Algorithms
                     return slow
             return None
 
+    # Partitioning elements around a pivot
+        def partition (pivot_index , arr):
+            pivot = arr[ pivot_index ]
+            smaller , equal , larger = 0, 0, len(arr)
+            while equal < larger:
+                if arr[equal] < pivot:
+                    arr[smaller], arr[equal] = arr[equal], arr[smaller]
+                    smaller , equal = smaller + 1, equal + 1
+                elif arr[equal] == pivot:
+                    equal += 1
+                else:
+                    larger -= 1
+                    arr[equal], arr[larger] = arr[larger], arr[equal]
+            print(arr)
+
     # Sorting Algorithms
         def quicksort(arr):
             if len(arr)==0:
