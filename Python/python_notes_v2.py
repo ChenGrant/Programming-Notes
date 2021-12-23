@@ -3416,6 +3416,9 @@ Abstract Data Types
         # use max heap when we want the smallest elements since max
         # heaps are good at removing the biggest elements
 
+        # to compare data types such as lists, the first element
+        # is the priority and defines the sort order.
+
         import heapq
 
         # creating a heap
@@ -3507,6 +3510,7 @@ Algorithms
             print(arr)
 
     # Sorting Algorithms
+        # rewrite so pivoting is in-place for O(1) space
         def quicksort(arr):
             if len(arr)==0:
                 return arr
@@ -3515,3 +3519,90 @@ Algorithms
                 less = list(filter(lambda x: x<pivot, arr[1:]))
                 greater = list(filter(lambda x: x>=pivot, arr[1:]))
                 return quicksort(less)+[pivot]+quicksort (greater)
+
+    # Graph Algorithms
+        # requires graphs to be adjacency dictionaries
+        g1 = {
+            'A' : ['B','C'],
+            'B' : ['D', 'E'],
+            'C' : ['F'],
+            'D' : [],
+            'E' : ['F'],
+            'F' : []
+        }
+
+        # DFS Algorithms
+
+            # given a start node and a graph, this function performs DFS on the graph
+            # starting at the start node. This function returns a set of all the visited
+            # nodes during the DFS
+            def dfs(start_node, graph):
+
+                def nbrs(curr_node):
+                    for node in graph:
+                        if node == curr_node:
+                            return graph[node]
+
+                def perform_dfs(curr_node):
+                    if curr_node in visited: return
+                    visited.add(curr_node)
+                    curr_node_nbrs = nbrs(curr_node)
+                    for nbr in curr_node_nbrs:
+                        perform_dfs(nbr)
+
+                visited = set()
+                perform_dfs(start_node)
+                return visited
+            #print(dfs('A', g1))
+
+
+            # given a start node, end node, and a graph, this function performs DFS on
+            # the graph starting at the start node. This function returns the path from
+            # the start node to the end node. If there is no path, this function returns
+            # "No Path"
+            def find_path(origin, destination, graph):
+
+                def nbrs(curr_node):
+                    for node in graph:
+                        if node == curr_node:
+                            return graph[node]
+
+                def dfs(curr_node):
+                    nonlocal found
+                    if curr_node in visited:
+                        return
+                    if curr_node == destination:
+                        visited.add(curr_node)
+                        curr_path.append(destination)
+                        found = True
+                        return
+                    if not found:
+                        visited.add(curr_node)
+                        curr_node_nbrs = nbrs(curr_node)
+                        curr_path.append(curr_node)
+                        for nbr in curr_node_nbrs:
+                            dfs(nbr)
+                        if not found:
+                            curr_path.pop()
+
+                curr_path, visited, found = deque(), set(), False
+                dfs(origin)
+                if curr_path == deque([]):
+                    return 'No Path'
+                return list(curr_path)
+            #print(find_path('0', '9', g3))
+
+
+            # given a a graph, this function performs DFS on the graph and returns
+            # a dictionary where the keys are the id's of components and the values
+            # are a set of nodes are in the same component for a given id, key.
+            def components(graph):
+                id, all_visited, id_nodes = 0, set(), dict()
+                for node in graph:
+                    if node not in all_visited:
+                        component_nodes = dfs(node, graph)
+                        id_nodes[id] = component_nodes
+                        all_visited.update(component_nodes)
+                        id+=1
+                return id_nodes
+            #print(components(g3))
