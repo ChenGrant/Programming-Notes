@@ -1218,19 +1218,6 @@ Loops
     0
     """
 
-    # we cannot change the index of a for loop
-    for i in range(5):
-        print(i)
-        i+=2
-    """
-    Loop prints the following:
-    0
-    1
-    2
-    3
-    4
-    """
-
     # use enumerate if we want both the index and a value in a list
     l1 = [23,9,32894,4]
 
@@ -1244,6 +1231,49 @@ Loops
     2 32894
     3 4
     """
+
+    # we cannot change the index of a for loop
+    for i in range(5):
+        print(i)
+        i+=2
+    """
+    Loop prints the following:
+    0
+    1
+    2
+    3
+    4
+    """
+
+
+    # we cannot change the loop item
+    a = [1,1,1,1,1]
+    for item in a:
+        item = 2
+    print(a)
+    # prints [1, 1, 1, 1, 1] and not [2, 2, 2, 2, 2]
+
+    # instead, use index
+    a = [1,1,1,1,1]
+    for i in range(len(a)):
+        a[i] = 2
+    print(a)
+    # prints [2, 2, 2, 2, 2]
+
+
+    # with enumerate, you can't change current val
+    a = [1,1,1,1,1]
+    for x, i in enumerate(a):
+        x = 0
+    print(a)
+    # prints [1, 1, 1, 1, 1] and not [0, 0, 0, 0, 0]
+
+    # with enumerate, changing curr val using index does weird stuff
+    a = [1,1,1,1,1]
+    for x, i in enumerate(a):
+        a[i] = 0
+    print(a)
+    # prints [0, 0, 1, 1, 1]
 
 
     # for loops cannot be empty, but if you for some reason have a for loop with no content, put in
