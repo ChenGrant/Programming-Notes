@@ -58,10 +58,11 @@ VARIABLES
     x = str(3)          # x will be '3'
     x = str(True)       # x will be 'True'
 
-    # int rounds down
+    # int rounds towards zero
     y = int(3)          # y will be 3
     y = int(3.1)        # y will be 3
     y = int(3.9)        # y will be 3
+    y = int(-23.9)      # y will be -23
     y = int("3.9")      # error
     y = int("39")       # y will be 39
     y = int("-39")      # y will be -39
@@ -1112,9 +1113,10 @@ Conditions and If Statements
         print("a is greater than b")
 
     # shorthand
+    # value_if_true if boolean_condition else value_if_false
         # if
         if a > b: print("a is greater than b")
-        # if else
+        # if, else
         print("A") if a > b else print("B")
 
     # nest if statements
