@@ -1,0 +1,52 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/1200px-Image_created_with_a_mobile_phone.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+div {
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 40px 30px;
+  width: min(300px, 40%);
+  height: min(300px, 50%);
+  margin: auto;
+}
+div form {
+  opacity: 1;
+  color: white;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+}
+div form h1 {
+  align-self: center;
+}
+div form label {
+  margin-top: 20px;
+  border-radius: 7px;
+  border-color: black;
+}
+div form input {
+  margin-top: 10px;
+  border-radius: 7px;
+  height: 30px;
+  border-color: transparent;
+  padding: 10px;
+  font-size: 20px;
+  outline: none;
+}
+div form #s {
+  margin-top: 30px;
+  border-radius: 7px;
+  border-color: black;
+  height: 50px;
+}
+
+/*# sourceMappingURL=style.css.map */
