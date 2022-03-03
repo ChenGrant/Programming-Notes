@@ -226,6 +226,38 @@ VARIABLES
 
 
 
+/*
+*******************************************************************************
+OPERATORS
+*/
+  // Check out this link: https://www.w3schools.com/js/js_operators.asp
+
+  // ternary operator:
+    // Syntax: condition ? exprIfTrue : exprIfFalse
+    function getFee(isMember) {
+      return (isMember ? '$2.00' : '$10.00');
+    }
+
+
+
+/*
+*******************************************************************************
+DATA TYPES
+*/
+
+Strings, Numbers, Booleans, Arrays, Objects
+
+// Strings
+    let s = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+    console.log(s.length);  // will return 26
+
+
+
+
+
+
+
 
 
 
