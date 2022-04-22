@@ -1,0 +1,13 @@
+.item {
+    height: 100%;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid black;
+    img {
+        height: 200px;
+    }
+}
