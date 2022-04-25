@@ -1,0 +1,49 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+}
+
+header{
+  background-color: red;
+  text-align: center;
+  padding: 3rem;
+}
+
+.body{
+  display: flex;
+  background: blue;
+  flex-grow: 1;
+  align-items: stretch;
+}
+
+.sidenav{
+  background-color: yellow;
+  padding: 40px;
+  text-align: center;
+}
+
+.main{
+  background-color: white;
+  flex: 1;
+  padding: 40px;
+  text-align: center;
+}
+
+footer{
+  background-color: green;
+  text-align: center;
+  padding: 3rem;
+}
+
+@media (max-width: 600px) {
+  .body{
+    display: flex;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,136 @@
+/*
+Absolute units
+	-  bad for responsive layouts
+  - Pixels (px)
+
+Percentages
+	- mainly used for widths
+	- relative to their parent
+	- %
+
+Relative Units
+	Relative to font-size
+		- em
+      - 1em equals the font size of the parent,
+      - em can grow out of control really quickly
+      - if you use ems for the font-size property, em is relative to the parent
+      - if you use ems for any other property, em is relative to the font of the element itself
+    - rem
+      - rem is short for Root em
+      - this means the unit is relative to the root of our document
+      - the root of an html page is the html element
+	Relative to viewport
+		- vw, vh, vmin, vmax
+
+
+font-size use rem
+padding and margin use em
+widths use em or %
+
+
+
+
+*/
+
+*{
+  padding: 0;
+  margin: 0;
+
+}
+
+html{
+  font-size: 20px;
+}
+
+.div1{
+  width: 50%;
+  /*
+  below is the max-width of div1
+  this is good for making lines take up 90% width on mobile devices, but limiting the line widths on computers for ez reading
+  */
+  max-width: 1000px;
+  height: 350px;
+  background-color: black;
+  margin: 0 auto;
+  margin-bottom: 430px;
+}
+
+.div2{
+  /*
+  div2 width is 90% of its parent element which is div1.
+  Since div1 width is 50% of the screen, div2 width is 90% of 50% of the screen which is 45% of the screen
+  */
+  width: 90%;
+  height: 350px;
+  background-color: red;
+  margin: 0 auto;
+}
+
+img{
+  width: 90%;
+  /*
+  notice altough the image heigth isn't declared, it is always adjusting to maintain the same aspect ratio
+  */
+  margin-left: 5%;
+}
+
+.div3{
+  font-size: 100px;
+}
+
+.div4{
+  font-size: .5em;
+}
+
+ul{
+  font-size: 0.5em;
+}
+
+#list_title{
+    font-size: 1em;
+}
+
+li{
+  font-size: 0.5em;
+}
+
+#remOf2{
+  font-size: 2rem;
+}
+
+
+.button1{
+  padding: .5em 1.25em; /*the .5 em is not .5 of the parent, but .5 of the font-size which is 1.5rem*/
+  font-size: 1.5rem;
+  margin-bottom: 13px;
+}
+
+.button2{
+  padding: .5em 1.25em;
+  font-size: 1rem;
+  margin-bottom: 13px;
+}
+
+.button3{
+  padding: .5em 1.25em;
+  font-size: 0.5rem;
+  margin-bottom: 13px;
+}
+
+.button4{
+  padding: 15px 30px;
+  font-size: 1.5rem;
+  margin-bottom: 13px;
+}
+
+.button5{
+  padding: 15px 30px;
+  font-size: 1rem;
+  margin-bottom: 13px;
+}
+
+.button6{
+  padding: 15px 30px;
+  font-size: 0.5rem;
+  margin-bottom: 13px;
+}
