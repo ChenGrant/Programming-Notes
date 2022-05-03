@@ -1,0 +1,19 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 40px;
+  border-radius: 15px;
+
+  div {
+    width: 300px;
+    padding: 5px 0px;
+    .name {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
