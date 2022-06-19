@@ -1,0 +1,37 @@
+{
+  "user": {
+    "uid": "0hWdxtipFTQWTyOJ74WTa4YUIo33",
+    "email": "grant232323chen2021@gmail.com",
+    "emailVerified": false,
+    "isAnonymous": false,
+    "providerData": [
+      {
+        "providerId": "password",
+        "uid": "grant232323chen2021@gmail.com",
+        "displayName": null,
+        "email": "grant232323chen2021@gmail.com",
+        "phoneNumber": null,
+        "photoURL": null
+      }
+    ],
+    "stsTokenManager": {
+      "refreshToken": "AIwUaOnFPnxMQI_--JIhleNdjwJL8W_aEBuQxk_BXfSSxaHez6gYqigliYfH0f_OG9fNj3oxeR00sVW_pYT0EN1aoDyZxz2CzWs5yaouD0JXPHAxCripKJerm_xSiZ_zxi9SZ6kxVQU7kIe_zKkhF0KHCGczWVdfSec7hWRKYqvVYTw9Ppn8e18Y1hgTMST84iygwEd-rmGVBQuc8dLmuMBL9bFbwAE52A",
+      "accessToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlYmYxMDBlYWRkYTMzMmVjOGZlYTU3ZjliNWJjM2E2YWIyOWY1NTUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vd29ya291dDEtNDRkNDgiLCJhdWQiOiJ3b3Jrb3V0MS00NGQ0OCIsImF1dGhfdGltZSI6MTY1MjYyODY1NSwidXNlcl9pZCI6IjBoV2R4dGlwRlRRV1R5T0o3NFdUYTRZVUlvMzMiLCJzdWIiOiIwaFdkeHRpcEZUUVdUeU9KNzRXVGE0WVVJbzMzIiwiaWF0IjoxNjUyNjI4NjU1LCJleHAiOjE2NTI2MzIyNTUsImVtYWlsIjoiZ3JhbnQyMzIzMjNjaGVuMjAyMUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiZ3JhbnQyMzIzMjNjaGVuMjAyMUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.mg3gc4I16ZcEMG54oQU04xz2qIjY5BIry6HFqYGCCwuzW2xtKxLPzQ4XJWl9Zho9lNX7mcAoVrPBQ67bst7GA04YpNho8SWOEZfGmee9UGOuaKKHKuK80iRTajiluAHMbim0XRnQP4_bl1OwFId9bQJgq-ADB7-oMRdsUPU0hracxkbR7MzVzquKjr5UttPlI-_fAv2Xy6R784Mg7R4mO1gb5agy-k8RduloRAeiNcoAwvVPHfRKPxUQDbRYFV0tJOF6-Id6IrWlDO80E_n0R_gW8s3Mn0XCzE0cnFvQURbsePnddK9npetDNQTrFLSrPDnbO4_ZGx-4-LBO1ZorFA",
+      "expirationTime": 1652632256247
+    },
+    "createdAt": "1652628654846",
+    "lastLoginAt": "1652628654846",
+    "apiKey": "AIzaSyAkHlzLIAvpgrbP6RDd-Pp0t6Z4H5_tw6s",
+    "appName": "[DEFAULT]"
+  },
+  "providerId": null,
+  "_tokenResponse": {
+    "kind": "identitytoolkit#SignupNewUserResponse",
+    "idToken": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlYmYxMDBlYWRkYTMzMmVjOGZlYTU3ZjliNWJjM2E2YWIyOWY1NTUiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vd29ya291dDEtNDRkNDgiLCJhdWQiOiJ3b3Jrb3V0MS00NGQ0OCIsImF1dGhfdGltZSI6MTY1MjYyODY1NSwidXNlcl9pZCI6IjBoV2R4dGlwRlRRV1R5T0o3NFdUYTRZVUlvMzMiLCJzdWIiOiIwaFdkeHRpcEZUUVdUeU9KNzRXVGE0WVVJbzMzIiwiaWF0IjoxNjUyNjI4NjU1LCJleHAiOjE2NTI2MzIyNTUsImVtYWlsIjoiZ3JhbnQyMzIzMjNjaGVuMjAyMUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsiZ3JhbnQyMzIzMjNjaGVuMjAyMUBnbWFpbC5jb20iXX0sInNpZ25faW5fcHJvdmlkZXIiOiJwYXNzd29yZCJ9fQ.mg3gc4I16ZcEMG54oQU04xz2qIjY5BIry6HFqYGCCwuzW2xtKxLPzQ4XJWl9Zho9lNX7mcAoVrPBQ67bst7GA04YpNho8SWOEZfGmee9UGOuaKKHKuK80iRTajiluAHMbim0XRnQP4_bl1OwFId9bQJgq-ADB7-oMRdsUPU0hracxkbR7MzVzquKjr5UttPlI-_fAv2Xy6R784Mg7R4mO1gb5agy-k8RduloRAeiNcoAwvVPHfRKPxUQDbRYFV0tJOF6-Id6IrWlDO80E_n0R_gW8s3Mn0XCzE0cnFvQURbsePnddK9npetDNQTrFLSrPDnbO4_ZGx-4-LBO1ZorFA",
+    "email": "grant232323chen2021@gmail.com",
+    "refreshToken": "AIwUaOnFPnxMQI_--JIhleNdjwJL8W_aEBuQxk_BXfSSxaHez6gYqigliYfH0f_OG9fNj3oxeR00sVW_pYT0EN1aoDyZxz2CzWs5yaouD0JXPHAxCripKJerm_xSiZ_zxi9SZ6kxVQU7kIe_zKkhF0KHCGczWVdfSec7hWRKYqvVYTw9Ppn8e18Y1hgTMST84iygwEd-rmGVBQuc8dLmuMBL9bFbwAE52A",
+    "expiresIn": "3600",
+    "localId": "0hWdxtipFTQWTyOJ74WTa4YUIo33"
+  },
+  "operationType": "signIn"
+}
