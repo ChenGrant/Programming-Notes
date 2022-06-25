@@ -1,0 +1,25 @@
+{
+  "name": "Calorie-Tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start" : "cd server && npm install && npm run start",
+    "prod": "cd server && npm run prod",
+    "staging": "cd server && npm run staging",
+    "dev": "cd server && npm run dev",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChenGrant/Calorie-Tracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChenGrant/Calorie-Tracker/issues"
+  },
+  "homepage": "https://github.com/ChenGrant/Calorie-Tracker#readme"
+}
