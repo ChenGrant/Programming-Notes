@@ -1445,6 +1445,69 @@ Functions
     21
     """
 
+    # Functions are first-class objects. This means that functions can be passed around and used
+    # as arguments, just like any other object
+    def say_hello(name):
+        return f"Hello {name}"
+    def greet_bob(greeter_func): # notice the greet_bob() function expects a function as its argument
+        return greeter_func("Bob")
+    greet_bob(say_hello)    # prints 'Hello Bob'
+    # The say_hello function is used without parentheses. This means that only a reference to the
+    # function is passed, and the function is not executed. The greet_bob() function, on the other
+    # hand, is written with parentheses, so it will be called as usual
+
+    # Inner Functions
+        # inner functions are functions that are defined inside other functions
+        def parent():
+            print("Printing from the parent() function")
+            def first_child():
+                print("Printing from the first_child() function")
+            def second_child():
+                print("Printing from the second_child() function")
+            second_child()
+            first_child()
+        parent()
+        """
+        calling parent() will print the following:
+        Printing from the parent() function
+        Printing from the second_child() function
+        Printing from the first_child() function
+        """
+        # Note that the order in which the inner functions are defined does not matter. Rather, it's
+        # when the functions are called for execution that matters.
+
+        # Inner functions are not defined until the parent function is called
+        # Inner functions are locally scoped to the parent function so they only exist within the
+        # parent function as local variables
+
+
+    # Returning Functions From Functions
+        # Functions can be return values of functions
+        def parent(num):
+            def first_child():
+                return "Hi, I am Emma"
+
+            def second_child():
+                return "Call me Liam"
+
+            if num == 1:
+                return first_child
+                # returns a reference to the function first_child, doesn't actually execute
+            else:
+                return second_child
+                # returns a reference to the function second_child, doesn't actually execute
+
+        first = parent(1)
+        second = parent(2)
+        print(first)    # prints <function parent.<locals>.first_child at 0x00000202363A0310>
+        print(second)   # prints <function parent.<locals>.second_child at 0x00000202363A05E0>
+        # notice these are the memory addresses (id) for the function objects
+        # the output means that the first variable refers to the local first_child() function inside
+        # of parent(), while second points to second_child()
+
+        first()         # prints 'Hi, I am Emma'
+        second()        # prints 'Call me Liam'
+
     # lambda function
         # a lambda function is a small anonymous function
         # an anonymous function is a function that is defined without a name
@@ -1510,6 +1573,139 @@ Functions
             print(reduce(lambda x,y: x*y, list))
             # will print 24     # 1*2=2-->2*3=6-->6*4==24
 
+
+
+"""
+***************************************************************************************************
+Decorators
+"""
+    # decorators allows us to modify the behavior of a function without changing its code
+
+    #suppose we have the following code:
+        def func(f):
+            def wrapper():
+                print("started")
+                f()
+                print("ended")
+                
+            return wrapper
+            
+        def func2():
+            print("i am func2")
+            
+        def func3():
+            print("i am func3")
+
+    # what if we want to modify func2 and func3 so that it makes use of the the wrapper function 
+    # that the func function returns? we can add the following two lines the end of the file
+        func2 = func(func2)
+        func3 = func(func3)
+        # now if we call func2(), we get the following:
+            # started
+            # i am func2
+            # ended
+
+    # but the above syntax can be even neater by writing the equivalent code using decorators
+        # by using the @func syntax, we replace func2 = func(func2) and func3 = func(func3)
+        def func(f):
+            def wrapper():
+                print("started")
+                f()
+                print("ended")
+                
+            return wrapper
+            
+        @func
+        def func2():
+            print("i am func2")
+            
+        @func
+        def func3():
+            print("i am func3")
+
+        func2()
+        func3()
+
+        # prints:
+            # started
+            # i am func2
+            # ended
+            # started
+            # i am func3
+            # ended
+
+    # but the above code doesn't work if func2 and func3 have a different number of parameters
+    # the above code also doesn't capture the return value if func2 and func3 return a value.
+    # suppose we modify func2 to have 2 parameters and a return value as shown below. we can
+    # modify the wrapper function as shown below
+        def func(f):
+            def wrapper(*args, **kwargs):
+                print("started")
+                return_value = f(*args, **kwargs)
+                print("ended")
+                return return_value
+                
+            return wrapper
+            
+        @func
+        def func2(x, y):
+            print(x)
+            return y
+            
+        @func
+        def func3():
+            print("i am func3")
+
+        return_value = func2(5, 6)
+        print(return_value)
+        func3()
+        #prints:
+            '''
+            started
+            5
+            ended
+            6
+            started
+            i am func3
+            ended
+            '''
+
+    # decorators can be useful to modify the functionality of many functions. For example, 
+    # suppose we have some functions that only accept some numeric input between 1 and 10.
+    # Instead of checking the parameters every time inside each function, we can make a
+    # decorator that performs the validation. 
+    # Another example is suppose we want to time how long different functions run for which
+    # is shown below
+    import time
+    def timer(f):
+        def wrapper(*args, **kwargs):
+            start_time = time.time()
+            rv = f(*args, **kwargs)
+            end_time = time.time()
+            print(f'time elapsed: {end_time - start_time}')
+            return rv
+            
+        return wrapper
+
+    @timer
+    def fast_func():
+        print("hi")
+        return "yes"
+        
+    @timer
+    def slow_func():
+        time.sleep(5)
+        
+    print(fast_func())
+    slow_func()
+    
+    #prints:
+        '''
+        hi
+        time elapsed: 4.291534423828125e-05
+        yes
+        time elapsed: 5.000223398208618
+        '''
 
 """
 ***************************************************************************************************
@@ -3221,79 +3417,6 @@ OOP
                     # this mro says: methods will be searched first in Rightpyramid, then in Square,
                     # then Rectangle, then in Triangle, and then, if nothing is found, in object,
                     # from which all classes originate
-
-
-
-"""
-***************************************************************************************************
-Decorators (I gave up on this)
-"""
-    # Functions are first-class objects. This means that functions can be passed around and used
-    # as arguments, just like any other object
-    def say_hello(name):
-        return f"Hello {name}"
-    def greet_bob(greeter_func):
-        # notice the greet_bob() function however, expects a function as its argument
-        return greeter_func("Bob")
-    greet_bob(say_hello)    # prints 'Hello Bob'
-    # The say_hello function is named without parentheses. This means that only a reference to the
-    # function is passed, and the function is not executed. The greet_bob() function, on the other
-    # hand, is written with parentheses, so it will be called as usual
-
-    # Inner Functions
-        # inner functions are functions that are defined inside other functions
-        def parent():
-            print("Printing from the parent() function")
-            def first_child():
-                print("Printing from the first_child() function")
-            def second_child():
-                print("Printing from the second_child() function")
-            second_child()
-            first_child()
-        parent()
-        """
-        calling parent() will print the following:
-        Printing from the parent() function
-        Printing from the second_child() function
-        Printing from the first_child() function
-        """
-        # Note that the order in which the inner functions are defined does not matter. Rather, it's
-        # when the functions are called for execution that matters.
-
-        # Inner functions are not defined until the parent function is called
-        # Inner functions are locally scoped to the parent function so they only exist within the
-        # parent function as local variables
-
-
-    # Returning Functions From Functions
-        # Functions can be return values of functions
-        def parent(num):
-            def first_child():
-                return "Hi, I am Emma"
-
-            def second_child():
-                return "Call me Liam"
-
-            if num == 1:
-                return first_child
-                # returns a reference to the function first_child, doesn't actually execute
-            else:
-                return second_child
-                # returns a reference to the function second_child, doesn't actually execute
-
-
-
-        first = parent(1)
-        second = parent(2)
-        print(first)    # prints <function parent.<locals>.first_child at 0x00000202363A0310>
-        print(second)   # prints <function parent.<locals>.second_child at 0x00000202363A05E0>
-        # notice these are the memory addresses (id) for the function objects
-        # the output means that the first variable refers to the local first_child() function inside
-        # of parent(), while second points to second_child()
-
-        first()         # prints 'Hi, I am Emma'
-        second()        # prints 'Call me Liam'
-
 
 
 """
