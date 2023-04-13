@@ -1341,6 +1341,70 @@ Iterators
         print(next(myiter))     # prints 4
         print(next(myiter))     # prints 5
 
+    # one reason we would want to use iterators is because they can save memory.
+    # for instance, suppose we want to check if a word exists in a massive text file.
+    # we can iterate over the text file since we check one word at a time, and don't
+    # need all the words in the text file at the same time.
+    # for instance, suppose we want to loop over the numbers from 1 to 10
+    # we could have have an array of [1,2,3,4,5,6,7,8,9,10] or a range(1,11)
+    
+    print(sys.getsizeof([1,2,3,4,5,6,7,8,9,10]))    # prints 136
+    print(sys.getsizeof(range(1,11)))               # prints 48
+
+    # notice the range takes a lot less space since we don't need the all the numbers
+    # from 1 to 10 at one time, we only need one number at a time
+
+    # note that the range method is not an iterator. to get an iterator from range,
+    # we say iter(range(1,11))
+    print(sys.getsizeof(iter(range(1,11))))          # prints 32
+    
+
+
+"""
+***************************************************************************************************
+Generators
+"""
+
+    # generators is a syntactically more elegant way to create iterators
+
+    # one way to create a generator is to create a function that makes
+    # use of the yield keyword.
+    # The way a generator works is whenever the yield keyword is hit, it
+    # pauses the execution of the function, the information about the function
+    # is saved in memory, and returns the value to whatever is iterating 
+    # over the generator.
+
+    def gen(n):
+        for i in range(n):
+            yield i
+
+    x = gen(5)
+    print(next(x))  # prints 0
+    print(next(x))  # prints 1
+    print(next(x))  # prints 2
+    print(next(x))  # prints 3
+    print(next(x))  # prints 4
+    print(next(x))  # prints StopIteration error
+
+    #below is the same thing as the above code for the gen function
+    def gen(n):
+        yield 0
+        yield 1
+        yield 2
+        yield 3
+        yield 4
+
+    # generator comprehension
+        # below is the same thing as the gen function above
+        x = (i for i in range(5))
+        
+        print(x)        # prints <generator object <genexpr> at 0x7f937991dcb0>
+        print(next(x))  # prints 0
+        print(next(x))  # prints 1
+        print(next(x))  # prints 2
+        print(next(x))  # prints 3
+        print(next(x))  # prints 4
+        print(next(x))  # prints StopIteration error
 
 
 """
