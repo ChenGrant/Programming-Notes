@@ -1357,12 +1357,17 @@ Functions
     # if you do not know how many arguments that will be passed into your function, add a * before
     # the parameter name in the function definition.
     # *args will allow the function to receive a tuple of argument
-    def my_function(*kids):
+    # note that in the example below, the parameter  doesn't have to be *kids, it can be named 
+    # whatever we want. Generally *args is convention
+    def my_function(*kids): 
+        print(kids) # notice that kids is a tuple
         print("The youngest child is " + kids[2])
     my_function("Emil", "Tobias", "Linus")
-    # will print "The youngest child is Linus"
+    # will print:
+        # ('Emil', 'Tobias', 'Linus')
+        # "The youngest child is Linus"
 
-    # *keyword arguements
+    # *keyword arguments
     # send arguments with the key = value syntax.
     def my_function(child3, child2, child1):
         print("The youngest child is " + child3)
@@ -1374,9 +1379,15 @@ Functions
     # function, add two asterisk: ** before the parameter name in the function definition.
     # This way the function will receive a dictionary of arguments, and can access
     # the items accordingly
+    # note that in the example below, the parameter  doesn't have to be **kid, it can be named 
+    # whatever we want. Generally **kwargs is convention
     def my_function(**kid):
-        print("His last name is " + kid["lname"])
-    my_function(fname = "Tobias", lname = "Refsnes")    # will print "His last name is Refsnes"
+        print(kid) # notice that kids is a dictionary
+        print("His last name is " + kid["lname"])       
+    my_function(fname = "Tobias", lname = "Refsnes")    
+    # will print:
+        # {'fname': 'Tobias', 'lname': 'Refsnes'}
+        # "His last name is Refsnes"
 
     # default paramter value
     # if we call the function without argument, it uses the default value
@@ -1466,7 +1477,18 @@ Functions
             # returns the modified list, tuple, etc
             # syntax:   constructor(map(lambdaFunction, input))
             oldList = [1,2,3,4]
-            newList = list(map(lambda x: x**2, oldList)
+            newList = list(map(lambda x: x**2, oldList))
+            print(newList)      # [2, 4]
+
+            # the map function returns an iterator. We use the list() method
+            # to convert the iterator to a list. Below is an example of if 
+            # the list() method wasn't used
+            filtered = filter(lambda x: x%2==0, oldList)
+            print(filtered)     # <filter object at 0x7fa036fbbfd0>
+            for i in filtered:
+                print(i)        # prints 2, 4 on new lines
+            
+
 
         # filter
             # filters items out of a sequence
@@ -1905,6 +1927,32 @@ Modular Programming
         # if the module is not in the same directory, use the below code
             import module
             module.path.append('/.../application/app/folder')
+
+    # How does importing work underneath the hood?
+        # the sys module provides functions and variables used to manipulate different 
+        # parts of the Python runtime environment.
+        # sys.path returns a list of the import paths. Import paths is where python will look
+        # to import things. 
+        # To search for a module to import, python will through the paths in the sys.path list. 
+        # Python will go through the paths and once it finds a path that contains the module,
+        # python will use the module and stop searching the rest of the paths. If the module 
+        # isn't found in any of the paths, an error will be raised.
+
+        import sys 
+        print(sys.path)
+        # prints ['c:\\Users\\Productivity\\Desktop\\django-rest', 
+        # 'C:\\Python311\\python311.zip', 
+        # 'C:\\Python311\\Lib', 
+        # 'C:\\Python311\\DLLs', 
+        # 'C:\\Python311', 
+        # 'C:\\Python311\\Lib\\site-packages']
+
+        # python will go to 'c:\\Users\\Productivity\\Desktop\\django-rest'. If the module
+        # exists in this path, the module is used and the search stops. If the module does
+        # not exist in this path, then the next path is used. So python then goes on to
+        # 'C:\\Python311\\python311.zip' and repeats the process.
+        # notice that the first path in the list is the current folder that you are in.
+
     # use functions within a module with the syntax: module_name.function_name
         myModule.greetings("grant")
     # use variables within a module with the syntax: module_name.variable_name
@@ -2395,6 +2443,49 @@ Collections
         c 2
         """
 
+
+
+"""
+***************************************************************************************************
+Virtual Environments
+"""
+
+# https://www.youtube.com/watch?v=KxvKCSwlUv8
+
+# Most python projects we develop will have libraries as dependencies (code written by other 
+# people) that we can install and use so that we don't have to rewrite it ourselves. 
+# Ex: requests library, flask
+
+# New versions of these libraries can be released. Thus, it's possible that when we update a 
+# library, our code will no longer work because the way that we should use the library has changed.
+
+# Virtual environments (venvs) exists so that we can separate the dependencies of one project
+# from the dependencies of another that way they can have different versions of the same library
+# (this often happens when we start projects at different times). 
+
+# A venv has two key parts. The first part is the python version. 
+# The second is a folder of the 3rd party libraries that you install in that environment.
+
+# This allows us to use different python versions by switching between venvs.
+
+
+# To create a venv, in cmd run: python -m venv venvName
+# this creates a new venvName folder inside our current folder
+
+# To activate a venv, in cmd run: venvName\scripts\activate 
+
+# with the venv activated, if we run in cmd: echo %PATH%, notice the very first path is the 
+# path to the venv we created, meaning that is the path that will be found and used first
+
+# now, when we install a library with pip with the venv activated, that library will be installed
+# in the venv. For instance, if we run: pip install flask, we will see a flask.exe fil in the scripts
+# folder of the venvName folder. 
+
+# to keep track of which dependencies we installed, we have a requirements.txt file. We can also have a
+# requirements-dev.txt which keeps track of dev dependencies.
+
+# to install all the dependencies listed in a requirements.txt file, activate the venv 
+# and run: pip install - requirements.txt
 
 
 """
