@@ -265,7 +265,7 @@ DATA TYPES
 
                 # the keyword "not in" returns true if a string is not in
                 # another string, and true otherwise
-                print("x" in "sds")     # will print True
+                print("x" not in "sds")     # will print True
 
                 # escape characters
                 """
