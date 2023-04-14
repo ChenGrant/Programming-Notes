@@ -890,6 +890,20 @@ DATA TYPES
                   "child2" : child2,
                   "child3" : child3
                 }
+            
+            # Dictionary Comprehension
+                # Consider the following code:
+                square_dict = dict()
+                for num in range(1, 11):
+                    square_dict[num] = num*num
+                
+                # Now, let's create the dictionary in the above 
+                # program using dictionary comprehension.
+                # dictionary comprehension should be written in a specific pattern.
+                # The minimal syntax for dictionary comprehension is:
+                # dictionary = {key: value for vars in iterable}
+                square_dict = {num: num*num for num in range(1, 11)}
+                
 
     """
     SET TYPES
@@ -2346,6 +2360,88 @@ Run Time
     end = time.perf_counter()
     print(end-start)        # will print the time it takes in seconds
 
+
+"""
+***************************************************************************************************
+REQUESTS MODULE
+"""
+  # The requests module is a popular Python library for making HTTP requests. 
+  # It simplifies the process of sending HTTP requests and handling the responses, 
+  # allowing developers to interact with web services and APIs in a more intuitive way.
+  
+  # To use the requests module, you must first install it using: pip install requests
+  # Then you have the import the module
+  import requests
+  
+  #GET request:
+    response = requests.get('https://jsonplaceholder.typicode.com/posts')
+    print(response) # prints <Response [200]>
+    print(response.headers)
+    print(response.url)
+    print(response.text)
+    print(response.json())
+
+
+  #POST request:
+    response = requests.post('https://www.example.com/api/data', data={'name': 'John Doe', 'age': 30})
+    print(response.status_code)
+    print(response.json())
+
+
+
+  #PUT request:
+    response = requests.put('https://www.example.com/api/data/123', data={'name': 'John Doe', 'age': 30})
+    print(response.status_code)
+    print(response.json())
+
+
+
+  #DELETE request:
+    response = requests.delete('https://www.example.com/api/data/123')
+    print(response.status_code)
+    print(response.json())
+    
+    
+"""
+***************************************************************************************************
+ASYNCIO (not complete)
+"""
+    # Note that asynchronous programming is not multi-threading. 
+    # Multi-threading allows us to perform multiple tasks at the same time. 
+    # Async programming only allows us to perform one task at a time. But, if the current task
+    # is being unproductive (such as awaiting), we start executing the next productive task.
+  
+    # to use async programming, we import asyncio
+    # to define an async function, we use the async keyword
+    
+    import asyncio
+
+    async def func1():
+        print("a")
+        await func2()
+        print('b')
+
+    async def func2():
+        print("1")
+        await asyncio.sleep(5)
+        print('2')
+
+    asyncio.run(func1())  
+
+    # note:
+        # we use asyncio.run to run async functions
+        # we pass a function execution and not a function reference to asyncio.run
+
+    # output:
+        '''
+        prints "a"
+        prints "1"
+        (waits 5 seconds)
+        prints "2"
+        prints "b"
+        '''
+    
+ 
 
 """
 ***************************************************************************************************
