@@ -2444,6 +2444,8 @@ REQUESTS MODULE
   # It simplifies the process of sending HTTP requests and handling the responses, 
   # allowing developers to interact with web services and APIs in a more intuitive way.
   
+  # note that this module is synchronous
+  
   # To use the requests module, you must first install it using: pip install requests
   # Then you have the import the module
   import requests
