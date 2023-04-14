@@ -2361,6 +2361,81 @@ Run Time
     print(end-start)        # will print the time it takes in seconds
 
 
+
+"""
+***************************************************************************************************
+ if __name__ == '__main__'
+"""
+
+    # In Python, the if __name__ == '__main__' statement is used to determine if a Python file is 
+    # being run as the main program or if it is being imported as a module into another program.
+    # When a Python file is run as the main program, the module's __name__ variable is set to 
+    # '__main__'. However, when a Python file is imported as a module into another program, 
+    # the module's __name__ variable is set to the name of the module.
+    
+    # Ex: 
+        # consider the following "module1.py" file
+        print(__name__)
+        # if we run the module1.py file directly, the output is "__main__"
+        
+        
+        # now suppose we have the following "module2.py" file
+        import module1
+        # now if we run the module2.py file directly, the output is "module1".
+    
+    
+    # Ex:
+        # consider the following "module1.py" file
+        print("always printed")
+
+        def main():
+            print("from main")
+        
+
+        if __name__ == '__main__':
+            main()
+            
+        # consider the following "module2.py" file
+        import module1
+        print("module 2")
+        
+        # if we run "module1.py" directly, then the file's 
+        # __name__ variable has a value of '__main__'. This means
+        # the condition __name__ == '__main__' is true so the
+        # main function is executed.
+        # thus the output is:
+            # 'always printed'
+            # 'from main'
+            
+        # if we run "module2.py" directly, then the module1.py's 
+        # __name__ variable has a value of 'module1'. This means
+        # the condition __name__ == '__main__' is false so the
+        # main function is not executed.
+        # thus the output is:
+            # 'always printed'
+            # 'module 2'
+            
+    # why use __name__ == '__main__'?
+        # This helps signal to the reader that this file is a script
+        # and can be executed. If there is no __name__ == '__main__',
+        # then the file is likely meant to be imported. Note this is
+        # just convention and the python language doesn't enforce it.
+    
+    # why make a main function as opposed to putting the code inside the 
+    # __name__ == '__main__' condition
+        # it makes the code inside the __name__ == '__main__' be global 
+        # scope which is not ideal, rather have local scope. Global scope
+        # can lead to errors which are hard to debug.
+        
+        # using a main function allows us to reuse code if needed
+        
+        # note that we can call the main function of an imported module
+        # in the above example, we would modify "module2.py" to include the
+        # following line:
+        module1.main()
+        
+        
+
 """
 ***************************************************************************************************
 REQUESTS MODULE
