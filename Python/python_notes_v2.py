@@ -1034,7 +1034,6 @@ DATA TYPES
         print(bool(myobj))  # prints False
 
 
-
 """
 ***************************************************************************************************
 User Input
@@ -2917,8 +2916,43 @@ Virtual Environments
 # to keep track of which dependencies we installed, we have a requirements.txt file. We can also have a
 # requirements-dev.txt which keeps track of dev dependencies.
 
+
+# pip freeze is a command that generates a list of all installed Python packages and their versions in 
+# a specified environment. It is commonly used in Python projects to create a requirements.txt file that 
+# lists all the dependencies required to run the project. To create a requirements.txt file using pip 
+# freeze, simply run the command and redirect the output to a file: pip freeze > requirements.txt. This 
+# will create a file named requirements.txt in the current directory that contains a list of all 
+# installed packages and versions.
+
 # to install all the dependencies listed in a requirements.txt file, activate the venv 
 # and run: pip install - requirements.txt
+
+
+"""
+***************************************************************************************************
+ENVIRONMENT VARIABLES
+"""
+    # pip install python-dotenv
+    
+    # Suppose we have the following .env.dev file:
+        API_KEY=development_api_key
+    # Suppose we have the following .env.prod file:
+        API_KEY=production_api_key
+        
+    # Suppose we have the following .py file:
+        from dotenv import load_dotenv
+        import os
+
+        if (os.environ.get('ENV') == "dev"): load_dotenv(".env.dev")
+        if (os.environ.get('ENV') == "prod"): load_dotenv(".env.prod")
+        print(os.environ.get("API_KEY"))
+        
+    # to set the value of the 'ENV' variable to "prod", run in cmd: $Env:ENV="prod"
+    # Now if we run the .py file, we see the following output:
+        # ENV=prod
+        # production_api_key
+    
+    # note that load_dotenv() with no arguements will load the dev env by default
 
 
 """
