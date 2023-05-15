@@ -88,6 +88,11 @@ VARIABLES
     # unpack values in a list, but the number of items must equal number of variables
     numbers = [1,2,3]
     x, y, z = numbers
+    
+    # we can also unpack as below:
+    # the number of items must equal number of variables
+    [x,y,z] = [1,2,3]
+    print(x,y,z) # prints 1 2 3 
 
 
 
@@ -651,6 +656,9 @@ DATA TYPES
                 "year": 1964
             }
             # Dictionary items are presented in key:value pairs, and can be referred to by using the key name
+            # Dictionary keys must be of an immutable type. Strings and numbers are the two most commonly 
+            # used data types as dictionary keys. We can also use tuples as keys but they must contain only 
+            # strings, integers, or other tuples
             # Dictionary items are ordered, mutable, and doesn't allow duplicates
             # Dictionary items can be of any data type
             print(thisdict)     # will print {'brand': 'Ford', 'model': 'Mustang', 'year': 1964}
@@ -709,9 +717,9 @@ DATA TYPES
                 # dictionary will be reflected in the values list.
                 # O(1) time complexity
                 car = {
-                "brand": "Ford",
-                "model": "Mustang",
-                "year": 1964
+                    "brand": "Ford",
+                    "model": "Mustang",
+                    "year": 1964
                 }
                 x = car.values()
                 print(x)    # will print dict_values(['Ford', 'Mustang', 1964])
@@ -722,9 +730,9 @@ DATA TYPES
                 # items() is a view of the items of the dictionary, meaning that any changes done
                 # to the dictionary will be reflected in the items list.
                 car = {
-                "brand": "Ford",
-                "model": "Mustang",
-                "year": 1964
+                    "brand": "Ford",
+                    "model": "Mustang",
+                    "year": 1964
                 }
                 x = car.items()
                 print(x)    # dict_items([('brand', 'Ford'), ('model', 'Mustang'), ('year', 1964)])
@@ -1295,6 +1303,21 @@ Loops
     # the pass statement to avoid getting an error.
     for x in [0, 1, 2]:
         pass
+    
+    #unpacking in loops
+    for (key, val) in [(1,2), (3,4)]:
+        print(key, val)
+    # prints:
+    # 1 2
+    # 3 4
+    
+    for [key, val] in [[1,2], [3,4]]:
+        print(key, val)
+    # prints:
+    # 1 2
+    # 3 4
+    
+    
 
 
 
@@ -2595,6 +2618,43 @@ Collections
         print(list(c1.elements()))      # prints ['B', 'B', 'B', 'B', 'B', 'A', 'A', 'A', 'C', 'C']
         print(list(c2.elements()))      # prints ['A', 'A', 'A', 'B', 'B', 'B', 'B', 'B', 'C', 'C']
         print(list(c3.elements()))      # prints ['A', 'A', 'A', 'B', 'B', 'B', 'B', 'B', 'C', 'C']
+        
+        # looping over a Counter's keys
+        c = Counter({2:4, 1:0, 3:0})
+        for key in c:
+            print(key)
+        # prints:
+        # 2
+        # 1
+        # 3
+            
+        # looping over a Counter's values
+        c = Counter({2:4, 1:0, 3:0})
+        for val in c.values():
+            print(val)
+        # prints
+        # 4
+        # 0 
+        # 0
+        
+        # to loop over a Counter's keys and values, use the .items() method
+        c = Counter({2:4, 1:0})
+        print(c.items())    # prints dict_items([(2, 4), (1, 0)])
+        for key, val in c.items():
+            print(key, val)
+        # prints:
+        # 2 4
+        # 1 0
+        
+        # sorting only the keys
+        c = Counter({2:4, 1:0, 3:0})
+        print(sorted(c))    # prints [1, 2, 3]
+        
+        # sorting both keys and values 
+        c = Counter({2:4, 1:0, 3:0})
+        print(sorted(c.items()))    # prints [(1, 0), (2, 4), (3, 0)]
+        
+        
 
         # the most_common(top_n_counter_item_key) returns a list of the n item keys with the
         # largest count in descending order
@@ -2629,7 +2689,7 @@ Collections
         # prints Counter({1: 2, 2: -2}), notice that subtract method does display elements that
         # have a count of 0 or less
 
-        # The subtract() takes iterable (list) or a mapping (dictionary) as an argument and
+        # The update() takes iterable (list) or a mapping (dictionary) as an argument and
         # increases elements count using that argument
         c1 = Counter({1:3,2:4})
         c2 = Counter({1:1, 2:-6})
@@ -2641,6 +2701,16 @@ Collections
         print(c1)
         # prints Counter({1: 4, 2: -2}), notice that update method does display elements that have
         # a count of 0 or less
+        
+        # If two Counters have the same keys, and each key maps to the same value, the two Counters
+        # are equal via == .
+        c1 = Counter({1:3,2:4})
+        c2 = Counter({2:4, 1:3})
+        print(c1 == c2) # prints True
+        # However, there is an exception when the count is 0 as shown below:
+        c1 = Counter({2:4})
+        c2 = Counter({2:4, 1:0})
+        print(c1 == c2) # prints True
 
         # clear() empties the counter
         c6 = Counter(a=4,b=2,c=0,d=2)
@@ -2828,7 +2898,10 @@ Collections
         from collections import defaultdict
 
         # initializing defaultdict objects
+        d = defaultdict(str)        # set a default data type for the dict. default value of int is ""
+        d = defaultdict(list)        # set a default data type for the dict. default value of int is []
         d = defaultdict(int)        # set a default data type for the dict. default value of int is 0
+        
         d['a']=1                    # creates a key 'a' with a value of 1
         d['b']="4"                  # creates a key 'b' with a value of "4"
         print(d)                    # prints defaultdict(<class 'int'>, {'a': 1, 'b': '4'}), notice
@@ -3928,10 +4001,12 @@ Abstract Data Types
         # heaps will be mutable
 
         # use min heap when we want the biggest elements since min
-        # heaps are good at removing the smallest elements
+        # heaps have the smallest element at the root, so they are 
+        # good at removing the smallest elements
 
         # use max heap when we want the smallest elements since max
-        # heaps are good at removing the biggest elements
+        # heaps have the largest element at the root, so they are 
+        # good at removing the biggest elements
 
         # to compare data types such as lists, the first element
         # is the priority and defines the sort order.
