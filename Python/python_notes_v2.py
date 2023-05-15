@@ -2654,10 +2654,12 @@ Collections
         c = Counter({2:4, 1:0, 3:0})
         print(sorted(c.items()))    # prints [(1, 0), (2, 4), (3, 0)]
         
-        
-
         # the most_common(top_n_counter_item_key) returns a list of the n item keys with the
         # largest count in descending order
+        # Time complexity: O(nlogk) 
+        # n is the number of items in the counter
+        # k is the number of items the most_common function returns 
+        
         print(c1.most_common(1))
         # prints [('B', 5)]                         # 'B' appears the most, it appears 5 times
         print(c1.most_common(2))
