@@ -1228,7 +1228,7 @@ Loops
     5
     """
 
-    # reversed() allows us to reverse a range
+    # reversed() allows us to reverse an iterable
     for x in reversed(range(6)):
       print(x)
     """
@@ -1254,6 +1254,18 @@ Loops
     2 32894
     3 4
     """
+    
+    # user reversed(list(enumerate(MY_ITERABLE))) to reverse iterate 
+    # with index and value
+    for i, x in reversed(list(enumerate(["grant", "was", "here"]))):
+        print(i, x)
+    """
+    Loop prints the following:
+    2 here
+    1 was
+    0 grant
+    """
+    
 
     # we cannot change the index of a for loop
     for i in range(5):
