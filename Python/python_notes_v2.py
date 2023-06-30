@@ -2512,10 +2512,112 @@ REQUESTS MODULE
     print(response.status_code)
     print(response.json())
     
-    
+
 """
 ***************************************************************************************************
-ASYNCIO (not complete)
+'with' keyword
+"""
+    # In Python, the with keyword is used in a context manager statement. It is designed to 
+    # simplify the management of resources, such as files or network connections, by ensuring that 
+    # they are properly initialized and cleaned up after use.
+    
+    # The with statement provides a convenient and concise way to work with resources that require 
+    # setup and teardown operations.
+    
+    # When you use the with statement, you typically follow this syntax:
+    with my_expression as my_variable:
+        # Code block
+    
+    # Here's what happens when you use the with statement:
+
+    # 1.
+    # my_expression is evaluated, which typically returns an object that represents the resource to be 
+    # managed. This object should implement two special methods: __enter__() and __exit__().
+
+    # 2.
+    # The __enter__() method of the object is called. It sets up the necessary environment for 
+    # using the resource. The value returned by __enter__() is assigned to my_variable.
+    
+    # 3.
+    # You can then use the resource within the indented code block under the with statement.
+    
+    # 4.
+    # After the code block, the __exit__() method of the object is called. It performs any necessary 
+    # cleanup or finalization tasks, such as closing a file or releasing a network connection. Any 
+    # exceptions that occurred within the code block can be handled in the __exit__() method.
+    
+    # ex:
+    with open('example.txt', 'r') as file:
+        data = file.read()
+        # Do something with the file data
+    
+    # The open() function is called with two arguments: the name of the file ('example.txt') and the 
+    # mode in which the file is opened ('r' for reading). This function returns a file object that 
+    # represents the opened file.
+
+    # The 'with' statement begins, and the file object is assigned to the variable 'file' using the 'as' 
+    # keyword. This allows you to refer to the file object within the indented code block.
+
+    # You can perform any desired operations with the data variable or any other file-related tasks 
+    # within the indented code block. In this example, we read the contents of the file
+
+    # Once the code block ends (when there are no more indented lines), the __exit__() method of the file 
+    # object is automatically called. This method is responsible for closing the file and releasing any 
+    # associated resources. In this case, the file is automatically closed.
+
+    # After the with statement, you can continue with the rest of your code. At this point, the file is 
+    # closed, and you no longer have access to the file object.
+
+
+"""
+***************************************************************************************************
+CONCURRENCY
+"""
+
+    # Concurrency: Concurrency refers to the ability of one single system to handle multiple tasks 
+    # simultaneously. It allows different tasks to make progress independently, even if they don't 
+    # execute at the exact same time. In a concurrent system, tasks are scheduled and executed in 
+    # an interleaved manner, where each task takes turns executing for a certain period before 
+    # switching to another task. Concurrency is often used to improve the responsiveness and 
+    # efficiency of a system by allowing it to perform multiple tasks concurrently.
+    
+    # There are specific implementations of concurrency such as multithreading and async programming
+    
+    # Ex: Imagine a scenario where you have two friends, Alice and Bob, and you want to communicate 
+    # with both of them through text messages. In a concurrent system, you can send a message to Alice, 
+    # then switch to Bob, and continue the conversation by interleaving the messages between the two. 
+    # Even though you're not sending messages to both of them simultaneously, the system allows you to 
+    # make progress with both conversations concurrently.
+    
+
+"""
+***************************************************************************************************
+PARALLELISM
+"""
+    # Parallelism refers to the simultaneous execution of multiple tasks or processes. In a parallel 
+    # system, tasks are executed at the same time using multiple resources, such as multiple processors 
+    # or processor cores. Parallelism is used to achieve faster execution and increase the throughput 
+    # of a system by dividing a task into smaller subtasks and processing them concurrently.
+    
+    # Ex: Imagine you have two smartphones, and you can use both of them to send messages to Alice and 
+    # Bob simultaneously. This represents parallelism. You can send a message to Alice using one phone 
+    # while simultaneously sending a message to Bob using the other phone. This way, both conversations 
+    # progress at the same time, resulting in faster communication.
+
+
+
+"""
+***************************************************************************************************
+MULTITHREADING
+"""
+    # https://www.youtube.com/watch?v=3dEPY3HiPtI&t=128s for understanding
+    # https://www.youtube.com/watch?v=IEEhzQoKtQU&t=156s for concurrent.futures syntax
+
+
+
+"""
+***************************************************************************************************
+ASYNCIO (not complete, also i think the below is wrong)
 """
     # Note that asynchronous programming is not multi-threading. 
     # Multi-threading allows us to perform multiple tasks at the same time. 
