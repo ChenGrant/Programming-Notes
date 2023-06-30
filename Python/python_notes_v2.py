@@ -2612,8 +2612,395 @@ MULTITHREADING
 """
     # https://www.youtube.com/watch?v=3dEPY3HiPtI&t=128s for understanding
     # https://www.youtube.com/watch?v=IEEhzQoKtQU&t=156s for concurrent.futures syntax
+    
+    # A thread is a flow of execution
+    # Each thread carries out its own seperate order of instructions
+    # By using multithreading, we can run different parts of our program at different times (they run 
+    # concurrently, not in parallel)
+    # Threads take turns running to achieve concurrency because of the GIL (global interpreter lock)
+    # The GIL allows only one thread can be running at a time. But the threads can take turns when one
+    # becomes idle. Thus, concurrency is achieved, but parallelism is not.
+    
+    # Program and tasks fall into two categories: cpu bound and io bound.
+    
+    # cpu bound is when a program/task spends its time waiting for internal events .
+    # it's better to use multiprocressing instead of multithreading for cpu bound tasks.
+    # ex: 
+        def calculate_factorial(n):
+            factorial = 1
+            for i in range(1, n+1):
+                factorial *= i
+            return factorial
+    # In this example, the calculate_factorial function calculates the factorial of a given number n 
+    # using a simple loop. This is a CPU-intensive task as it requires a lot of computation, hence it's
+    # cpu bound 
+    
+    # io bound is when a program/task spends most of its time waiting for external events. 
+    # it's better to use multithreading for io bound tasks.
+    # ex:
+        def fetch_url(url):
+            response = requests.get(url)
+            return response.status_code
+    # In this example, the fetch_url function uses the requests library to make an HTTP GET request to a 
+    # specified URL. It retrieves the HTTP response and returns the status code. This task is I/O-bound 
+    # because the program spends most of its time waiting for the network response.
+    
+    
+    # multithreading is when we have many threads running concurrently, not in parallel.
+    
+    # By default, we have the main thread
+    # to make use of threads, import the threading library
+    # ex:
+        import threading
+        print(threading.enumerate())        # prints [<_MainThread(MainThread, started 45880)>]
+        print(threading.active_count())     # prints 1, since we only have the main thread running
+        
+    # ex:
+        # in the following code, we run the eat, drink, and study methods sequentially
+        import time
+
+        def eat():
+            time.sleep(3)
+            print("finished eating")
+
+        def drink():
+            time.sleep(4)
+            print("finished drinking")
+            
+        def study():
+            time.sleep(5)
+            print("finished studying")
+            
+        eat()
+        drink()
+        study()
+        
+        # these eat, drink, and study functions are io bound since we are waiting for external events.
+        # we are waiting for the sleep function to expire before the next task is executed.
+        # this program executes eat which sleeps for 3 seconds. After the 3 seconds, then the program
+        # executes drink which sleeps for 4 seconds. After the 4 seconds, then the program executes 
+        # drink which study for 5 seconds. Thus, the program runs for roughly 3+4+5 = 12 seconds total
+        
+    
+    # to create a thread, we do the following:
+    my_thread = threading.Thread(target=my_func) 
+    # in this line, we creates a new thread object "my_thread" that will execute the "my_func" function.
+    
+    # to start the execution of a thread, we do the following:
+    my_thread.start()
+    # When start() is called on a Thread object, a new system thread is created, and the target function 
+    # associated with that thread begins executing concurrently.
+    
+    # ex:
+        # in the following code, we run the eat, drink, and study methods concurrently
+        import time
+        import threading
+
+        def eat():
+            time.sleep(3)
+            print("finished eating")
+
+        def drink():
+            time.sleep(4)
+            print("finished drinking")
+        
+        def study():
+            time.sleep(5)
+            print("finished studying")
+        
+        t1 = threading.Thread(target=eat)
+        t2 = threading.Thread(target=drink)
+        t3 = threading.Thread(target=study)
+        t1.start()
+        t2.start()
+        t3.start()
+
+        print(threading.enumerate()) 
+        print(threading.active_count())
+        
+        # output:
+        # [<_MainThread(MainThread, started 13648)>, <Thread(Thread-1 (eat), started 20884)>, <Thread(Thread-2 (drink), started 23116)>, <Thread(Thread-3 (study), started 5792)>]
+        # 4
+        # finished eating
+        # finished drinking
+        # finished studying
+        
+        # The main thread is responsible for creating the threads t1, t2, t3, starting 
+        # them (not actually executing them), and printing out threading.enumerate() and 
+        # threading.active_count().
+        
+        # t1, t2, t3 are responsible for executing the eat, drink, study functions
+        
+        # The program goes as follows:
+        
+        # the main thread creates theads t1, t2, t3 and starts them.
+        # t1, t2, t3 now starts executing eat, drink and study
+        # they moment these 3 threads start, the main thread continues on to the rest of 
+        # program, printing threading.enumerate() and threading.active_count().
+        # Thus, threading.enumerate() and threading.active_count() are printed near
+        # instantanelousy, roughly 0 seconds passed.
+        # Then, after 3 seconds, "finished eating" is printed as t1 is done sleeping.
+        # 1 second after "finished eating", "finished drinking" is printed as t2 is done sleeping
+        # 1 second after "finished drinking", "finished studying" is printed as t3 is done sleeping
+        
+    # thread synchronization
+        # suppose we want our main thread to wait for a certain thread to finish, we can do the following:
+        my_thread.join()
+        
+        # ex:
+            import time
+            import threading
+
+            def eat():
+                time.sleep(3)
+                print("finished eating")
+
+            def drink():
+                time.sleep(4)
+                print("finished drinking")
+            
+            def study():
+                time.sleep(5)
+                print("finished studying")
+            
+            t1 = threading.Thread(target=eat)
+            t2 = threading.Thread(target=drink)
+            t3 = threading.Thread(target=study)
+            t1.start()
+            t2.start()
+            t3.start()
+                    
+            t1.join()
+            t2.join()
+            t3.join()
 
 
+            print(threading.enumerate()) 
+            print(threading.active_count())
+            
+        # output:
+        # finished eating
+        # finished drinking
+        # finished studying
+        # [<_MainThread(MainThread, started 19284)>]
+        # 1
+
+        # this example is similar to the previous example, except the main thread
+        # waits for t1, t2, t3 to finish
+        # After 3 seconds, "finished eating" is printed as t1 is done sleeping.
+        # 1 second after "finished eating", "finished drinking" is printed as t2 is done sleeping
+        # 1 second after "finished drinking", "finished studying" is printed as t3 is done sleeping
+        # now, the threads have all finished, so the main thread can continue
+        # immedietly after "finished studying" is printed, the main thread prints 
+        # threading.enumerate() and threading.active_count()
+            
+    
+    # the above was the manual way of managing threads
+    # python also has the ThreadPoolExecutor which makes managing threads easier
+    # to make use of this, we have to import the concurrent.futures module
+    
+    # ex:
+        import time
+        import concurrent.futures
+
+        def f(rv):
+            print("start eating")
+            time.sleep(4)
+            print("finished eating")
+            return rv
+
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            t1 = executor.submit(f, "rv1")
+            print(t1.result())
+                
+        print("hello")
+        
+        # output:
+        # start eating (after ~0 seconds of program start)
+        # finished eating (after ~3 seconds of program start)
+        # rv1 (after ~3 seconds of program start)
+        # hello (after ~3 seconds of program start)
+        
+        # Using the ThreadPoolExecutor as a context manager (with statement), a 
+        # ThreadPoolExecutor object is created. This class provides a convenient way 
+        # to manage and execute tasks concurrently in a thread pool.
+        
+        # t1 = executor.submit(f, "rv1") creates a new thread whose target is the function
+        # f and passes "rv1" as the arguement. t1 is started as well
+        
+        # print(t1.reult()) prints the return value of f("rv1") which is "rv1"
+        
+        # In the given code, the "hello" print statement is executed after the with block
+        
+        
+    # we can make use of the folowing method which returns an interator that yields the
+    # results of the threads after completion
+    concurrent.futures.as_completed
+    
+        # ex:
+            import time
+            import concurrent.futures
+
+            def f(x):
+                time.sleep(x)
+                print("finished eating", x)
+                return x
+
+            with concurrent.futures.ThreadPoolExecutor() as executor:
+                results = [executor.submit(f, x) for x in range(1, 3)]
+                for f in concurrent.futures.as_completed(results):
+                    print(f.result())
+                    
+            print("hello")
+            
+            # output
+            # finished eating 1     (prints ~1 second after program start)
+            # 1                     (prints ~1 second after program start)
+            # finished eating 2     (prints ~2 second after program start)
+            # 2                     (prints ~2 second after program start)
+            # hello                 (prints ~2 second after program start)
+            
+    # instead of using list comphrehensions as above, we can do the following:
+        # ex:
+        import time
+        import concurrent.futures
+
+        def f(x):
+            time.sleep(x)
+            print("finished eating", x)
+            return x
+
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            results = executor.map(f, [5,4,3,2,1])
+            for result in results:
+                print(result)
+                
+        print("hello")
+        
+        # output: 
+        # finished eating 1     (prints ~1 second after program start)
+        # finished eating 2     (prints ~2 second after program start)
+        # finished eating 3     (prints ~3 second after program start)
+        # finished eating 4     (prints ~4 second after program start)
+        # finished eating 5     (prints ~5 second after program start)
+        # 5                     (prints ~5 second after program start)
+        # 4                     (prints ~5 second after program start)
+        # 3                     (prints ~5 second after program start)
+        # 2                     (prints ~5 second after program start)
+        # 1                     (prints ~5 second after program start)
+        # hello                 (prints ~5 second after program start)
+        
+        # when we use the "map" method, we create a thread and executes the function
+        # "f" for each item in the list [5,4,3,2,1]. The map method returns the results 
+        # in the order they were started. 
+        
+        
+    # real world example
+        # ex:
+        import requests
+        import time
+        import concurrent.futures
+
+        img_urls = [
+            'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759',
+            'https://images.unsplash.com/photo-1532009324734-20a7a5813719',
+            'https://images.unsplash.com/photo-1524429656589-6633a470097c',
+            'https://images.unsplash.com/photo-1530224264768-7ff8c1789d79',
+            'https://images.unsplash.com/photo-1564135624576-c5c88640f235',
+            'https://images.unsplash.com/photo-1541698444083-023c97d3f4b6',
+            'https://images.unsplash.com/photo-1522364723953-452d3431c267',
+            'https://images.unsplash.com/photo-1513938709626-033611b8cc03',
+            'https://images.unsplash.com/photo-1507143550189-fed454f93097',
+            'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e',
+            'https://images.unsplash.com/photo-1504198453319-5ce911bafcde',
+            'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99',
+            'https://images.unsplash.com/photo-1516972810927-80185027ca84',
+            'https://images.unsplash.com/photo-1550439062-609e1531270e',
+            'https://images.unsplash.com/photo-1549692520-acc6669e2f0c'
+        ]
+
+        t1 = time.perf_counter()
+
+
+        for img_url in img_urls:
+            img_bytes = requests.get(img_url).content
+            img_name = img_url.split('/')[3]
+            img_name = f'{img_name}.jpg'
+            with open(img_name, 'wb') as img_file:
+                img_file.write(img_bytes)
+                print(f'{img_name} was downloaded...')
+                
+
+        t2 = time.perf_counter()
+
+        print(f'Finished in {t2-t1} seconds')
+        
+        # output:
+        # photo-1516117172878-fd2c41f4a759.jpg was downloaded...
+        # photo-1532009324734-20a7a5813719.jpg was downloaded...
+        # ...
+        # photo-1549692520-acc6669e2f0c.jpg was downloaded...
+        # Finished in 23.101926751 seconds
+        
+        
+        
+        # when we are downloading many things online, the task of fetching the images is io 
+        # bounded, making it a great candidate to use threads. 
+        # If we use threads, we can send a request for one image on one thread, and before a 
+        # response is recieved for that thread, we create a new thread to send another request 
+        # for another image.
+        
+        # modified code with threads:
+        import requests
+        import time
+        import concurrent.futures
+
+        img_urls = [
+            'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759',
+            'https://images.unsplash.com/photo-1532009324734-20a7a5813719',
+            'https://images.unsplash.com/photo-1524429656589-6633a470097c',
+            'https://images.unsplash.com/photo-1530224264768-7ff8c1789d79',
+            'https://images.unsplash.com/photo-1564135624576-c5c88640f235',
+            'https://images.unsplash.com/photo-1541698444083-023c97d3f4b6',
+            'https://images.unsplash.com/photo-1522364723953-452d3431c267',
+            'https://images.unsplash.com/photo-1513938709626-033611b8cc03',
+            'https://images.unsplash.com/photo-1507143550189-fed454f93097',
+            'https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e',
+            'https://images.unsplash.com/photo-1504198453319-5ce911bafcde',
+            'https://images.unsplash.com/photo-1530122037265-a5f1f91d3b99',
+            'https://images.unsplash.com/photo-1516972810927-80185027ca84',
+            'https://images.unsplash.com/photo-1550439062-609e1531270e',
+            'https://images.unsplash.com/photo-1549692520-acc6669e2f0c'
+        ]
+
+        t1 = time.perf_counter()
+
+
+        def download_image(img_url):
+            img_bytes = requests.get(img_url).content
+            img_name = img_url.split('/')[3]
+            img_name = f'{img_name}.jpg'
+            with open(img_name, 'wb') as img_file:
+                img_file.write(img_bytes)
+                print(f'{img_name} was downloaded...')
+
+
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            executor.map(download_image, img_urls)
+
+
+        t2 = time.perf_counter()
+
+        print(f'Finished in {t2-t1} seconds')
+        
+        # output will say it finishes in roughly 5.54 seconds
+        # note that this 5.54 might be close to the unthreaded time if we have 
+        # few cores on our machine
+        
+        # note that if the task requires a lot of cpu work and are cpu bounded, such as 
+        # procressing and resizing photos, threads might actually slow down our program 
+        # because of their overhead.
+        
 
 """
 ***************************************************************************************************
